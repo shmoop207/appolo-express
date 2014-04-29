@@ -1,101 +1,28 @@
-var should = require('chai').should();
-var appolo  = require('../index');
+var should = require('chai').should(),
+    chai = require('chai'),
+    chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
 
 
-describe('Appolo', function () {
+describe('Appolo Express', function () {
 
-    beforeEach(function(){
+    describe('e2e', function () {
 
-    })
+        it('should should call route and get json', function (done) {
 
-    afterEach(function(){
-        appolo.launcher.reset();
-    })
+            chai.request('http://localhost:8182')
+                .get('/test/')
+                .res(function (res) {
+                    res.should.to.have.status(200);
+                    res.should.to.be.json;
 
-    describe('environments', function () {
+                    should.exist(res.body)
 
-        it('should create dev environment ', function () {
+                    res.body.working.should.be.ok
 
-            appolo.launcher.launch({
-                paths:['config', 'server'],
-                root:process.cwd() +'/test/mock'
-            });
-
-            should.exist(appolo.environment.test);
-
-            appolo.environment.test.should.be.equal("testDev")
-            appolo.environment.type.should.be.equal("development")
-        });
-
-
-        it('should create dev environment ', function () {
-
-            appolo.launcher.launch({
-                paths:['config', 'server'],
-                root:process.cwd() +'/test/mock',
-                environment:'production'
-            });
-
-            should.exist(appolo.environment.test);
-
-            appolo.environment.test.should.be.equal("testProd")
-
-            appolo.environment.type.should.be.equal("production")
-        });
-    });
-
-    describe('server injector', function () {
-        beforeEach(function(){
-            appolo.launcher.launch({
-                paths:['config', 'server'],
-                root:process.cwd() +'/test/mock'
-            });
-        })
-
-        it('should have  injector', function () {
-            var injector = appolo.inject;
-
-            should.exist(injector)
-
-        });
-
-        it('should have env in injector', function () {
-            var injector = appolo.inject;
-
-            var env = injector.getObject('env');
-
-            should.exist(env);
-
-            env.type.should.be.equal("development")
-
-        });
-
-        it('should have controller in injector', function () {
-            var injector = appolo.inject;
-
-            var controller = injector.getObject('controller');
-
-            should.exist(controller);
-            should.exist(controller.manager);
-        });
-
-    });
-
-    describe('server bootstrap', function () {
-        beforeEach(function () {
-            appolo.launcher.launch({
-                paths: ['config', 'server'],
-                root: process.cwd() + '/test/mock'
-            });
-        });
-
-        it('should have  call bootstrap initialize', function () {
-            var injector = appolo.inject;
-
-            var bootstrap = injector.getObject('appolo-bootstrap');
-
-            should.exist(bootstrap);
-            bootstrap.working.should.be.ok;
+                    done();
+                });
         });
     });
 

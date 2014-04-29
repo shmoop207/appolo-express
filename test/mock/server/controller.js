@@ -1,8 +1,12 @@
-var EventDispatcher = EventDispatcher = require('../../../lib/events/event-dispatcher');
-module.exports = EventDispatcher.define({
+var Controller = require('../../../lib/controller/controller');
+module.exports = Controller.define({
     $config:{
-        id:'controller',
-        singleton:true,
+        id:'testController',
         inject:['manager']
+    },
+
+    test:function(req,res){
+        res.json({working:true})
     }
+
 })

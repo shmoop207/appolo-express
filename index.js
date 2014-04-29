@@ -1,15 +1,16 @@
-module.exports.Class = require('appolo-class');
-module.exports.Util = require('./lib/util/util');
-module.exports.EventDispatcher = require('./lib/events/event-dispatcher');
 
+var appolo = require('appolo');
 
-module.exports.inject = require('./lib/inject/inject');
+module.exports = {
+    Class : appolo.Class,
+    Controller : require('./lib/controller/controller'),
+    EventDispatcher :appolo.EventDispatcher,
+    router : require('./lib/routes/router'),
+    inject : appolo.inject,
+    loader : appolo.loader,
+    launcher : require('./lib/launcher/launcher'),
+    environment : appolo.environment,
+    _ : appolo._
+}
 
-module.exports.loader = require('./lib/loader/loader');
-
-module.exports.launcher = require('./lib/launcher/launcher');
-
-module.exports.environment = require('./lib/environments/environments');
-
-module.exports._ = require('lodash');
 
