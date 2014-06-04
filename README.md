@@ -630,8 +630,8 @@ The `appolo` library is released under the MIT license. So feel free to modify a
 
 
   [1]: http://expressjs.com/
-  [2]: www.github.com/shmoop207/appolo-class
-  [3]: www.github.com/shmoop207/appolo-inject
+  [2]: https://www.github.com/shmoop207/appolo-class
+  [3]: https://www.github.com/shmoop207/appolo-inject
   [4]: https://www.npmjs.org/package/consolidate
   [5]: http://expressjs.com/4x/api.html#router
   [6]: http://expressjs.com/4x/api.html#req.params
