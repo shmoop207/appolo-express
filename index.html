@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Appolo-express : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Appolo-express</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/shmoop207/appolo-express">View on GitHub</a>
+
+          <h1 id="project_title">Appolo-express</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/shmoop207/appolo-express/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/shmoop207/appolo-express/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="appolo-express---" class="anchor" href="#appolo-express---"><span class="octicon octicon-link"></span></a>Appolo Express  <a href="https://travis-ci.org/shmoop207/appolo-express"><img src="https://travis-ci.org/shmoop207/appolo-express.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/shmoop207/appolo-express"><img src="https://david-dm.org/shmoop207/appolo-express.png" alt="Dependencies status"></a>
+</h1>
+
+<p>Appolo Express is an MVC Framework for Node.js build on top <a href="http://expressjs.com/">expressjs</a> 4. 
+Build with <a href="www.github.com/shmoop207/appolo-class">appolo-class</a> class system and <a href="www.github.com/shmoop207/appolo-inject">appolo-inject</a> dependency injection system.</p>
+
+<p>Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>MVC Architecture</li>
+<li>Powerful class system</li>
+<li>dependency injection system</li>
+<li>simple routing system</li>
+<li>Manage easily configurations and environments </li>
+<li>Simple folder structures</li>
+<li>Easy integrate third party services</li>
+<li>Easy to get started</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">appolo</span><span class="o">-</span><span class="nx">express</span> <span class="o">--</span><span class="nx">save</span>
+</pre></div>
+
+<h2>
+<a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick start</h2>
+
+<p>in your app.js file</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">launcher</span><span class="p">.</span><span class="nx">launch</span><span class="p">();</span>
+</pre></div>
+
+<h2>
+<a name="recommended-directory-structure" class="anchor" href="#recommended-directory-structure"><span class="octicon octicon-link"></span></a>Recommended Directory Structure</h2>
+
+<p>the environments folder must to exist every thing else is optional appolo will require all files in the config and server folders but the environments folder will be loaded first.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="o">-</span> <span class="nx">config</span>
+    <span class="o">-</span> <span class="nx">enviremnts</span>
+        <span class="o">-</span> <span class="nx">all</span><span class="p">.</span><span class="nx">js</span>
+        <span class="o">-</span> <span class="nx">develpment</span><span class="p">.</span><span class="nx">js</span>
+        <span class="o">-</span> <span class="nx">production</span><span class="p">.</span><span class="nx">js</span>
+    <span class="o">-</span> <span class="nx">express</span>
+        <span class="o">-</span><span class="nx">express</span><span class="p">.</span><span class="nx">js</span>
+    <span class="o">-</span> <span class="nx">loggers</span>
+        <span class="o">-</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">js</span>
+    <span class="o">-</span> <span class="nx">routes</span>
+        <span class="nx">routes</span><span class="p">.</span><span class="nx">js</span>
+    <span class="o">-</span> <span class="nx">redis</span>
+        <span class="o">-</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">js</span>
+    <span class="p">...</span>
+<span class="o">-</span> <span class="kr">public</span>
+<span class="o">-</span> <span class="nx">server</span>
+    <span class="o">-</span> <span class="nx">controllers</span>
+    <span class="o">-</span> <span class="nx">managers</span>
+    <span class="o">-</span> <span class="nx">services</span>
+    <span class="o">-</span> <span class="nx">views</span>
+    <span class="o">-</span> <span class="nx">bootstrap</span><span class="p">.</span><span class="nx">js</span>
+    <span class="p">...</span>
+<span class="o">-</span> <span class="nx">app</span><span class="p">.</span><span class="nx">js</span>
+
+</pre></div>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>appolo launch configuration options</p>
+
+<h4>
+<a name="optionspaths" class="anchor" href="#optionspaths"><span class="octicon octicon-link"></span></a>options.paths</h4>
+
+<p>Type :<code>array</code>, Default: <code>['config', 'server']</code>
+The folder will be required and loaded on appolo launch</p>
+
+<h4>
+<a name="optionsroot" class="anchor" href="#optionsroot"><span class="octicon octicon-link"></span></a>options.root</h4>
+
+<p>Type :<code>string</code>, Default: process.cwd()
+the root folder of the paths option</p>
+
+<h4>
+<a name="optionsbootstrapclassid" class="anchor" href="#optionsbootstrapclassid"><span class="octicon octicon-link"></span></a>options.bootStrapClassId</h4>
+
+<p>Type :<code>string</code>, Default: <code>(process.env.NODE_ENV || 'development')</code>
+environment file name that will override the environment all.js file
+default is the NODE_ENV or if not defined it will be <code>development</code></p>
+
+<h4>
+<a name="optionsbootstrapclassid-1" class="anchor" href="#optionsbootstrapclassid-1"><span class="octicon octicon-link"></span></a>options.bootStrapClassId</h4>
+
+<p>Type :<code>string</code>, Default: <code>appolo-bootstrap</code>
+appolo will try to find the bootstrap class after it launched and run it.
+this is optinal if the class is not defined nothing will happen.</p>
+
+<h4>
+<a name="optionstemplateengine" class="anchor" href="#optionstemplateengine"><span class="octicon octicon-link"></span></a>options.templateEngine</h4>
+
+<p>Type :<code>string</code>, Default: 'swig'
+the template engine that will used to render the views
+the template engine using the <a href="https://www.npmjs.org/package/consolidate">consolidate</a> module</p>
+
+<h4>
+<a name="optionsviewsfolder" class="anchor" href="#optionsviewsfolder"><span class="octicon octicon-link"></span></a>options.viewsFolder</h4>
+
+<p>Type :<code>string</code>, Default: '/server/views'
+the folder where your view templates located</p>
+
+<h4>
+<a name="optionspublic" class="anchor" href="#optionspublic"><span class="octicon octicon-link"></span></a>options.public</h4>
+
+<p>Type :<code>string</code>, Default: 'public'
+the public folder where all your assets and static files will be located</p>
+
+<h4>
+<a name="optionsloaddefaultconfigurations" class="anchor" href="#optionsloaddefaultconfigurations"><span class="octicon octicon-link"></span></a>options.loadDefaultConfigurations</h4>
+
+<p>Type :<code>bolean</code>, Default: 'true'
+true to load all  express default middlewares and express options. false to load custom middlewares by yourself</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">app</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">pretty</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">cache</span> <span class="o">=</span> <span class="s1">'memory'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'showStackError'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">compression</span><span class="p">({</span> <span class="nx">level</span><span class="o">:</span> <span class="mi">9</span> <span class="p">}));</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">'jsonp callback'</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">expressValidator</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">multer</span><span class="p">({</span> <span class="nx">dest</span><span class="o">:</span> <span class="s1">'./uploads/'</span><span class="p">}));</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">methodOverride</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cookieParser</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">flash</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">favicon</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="optionsstartmessage" class="anchor" href="#optionsstartmessage"><span class="octicon octicon-link"></span></a>options.startMessage</h4>
+
+<p>Type :<code>string</code>, Default: 'Appolo Server listening on port: {port} version:{version} environment: {environment}'
+the message that will be written to console log the the server starts</p>
+
+<h4>
+<a name="optionsstartserver" class="anchor" href="#optionsstartserver"><span class="octicon octicon-link"></span></a>options.startServer</h4>
+
+<p>Type :<code>bolean</code>, Default: 'true'
+if true the server will start immediately to listen to port else you will have to start in manually.</p>
+
+<h4>
+<a name="optionsport" class="anchor" href="#optionsport"><span class="octicon octicon-link"></span></a>options.port</h4>
+
+<p>Type :<code>number</code>, Default: <code>process.env.PORT || this._options.port || appolo.environment.port || 8080)</code>
+the port that the app will listen to.
+the port will be determined in the following order if defined: <code>process.env.PORT</code>, <code>options.port</code>,<code>appolo.environment.port</code>, <code>8080</code></p>
+
+<h4>
+<a name="usage-example" class="anchor" href="#usage-example"><span class="octicon octicon-link"></span></a>usage example:</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">launcher</span><span class="p">.</span><span class="nx">launch</span><span class="p">(</span> <span class="p">{</span>
+    <span class="nx">paths</span><span class="o">:</span><span class="p">[</span><span class="s1">'config'</span><span class="p">,</span> <span class="s1">'server'</span><span class="p">],</span>
+    <span class="nx">root</span> <span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span><span class="o">+</span><span class="s1">'/app'</span><span class="p">,</span>
+    <span class="nx">environment</span> <span class="o">:</span> <span class="s1">'testing'</span><span class="p">,</span>
+    <span class="nx">port</span><span class="o">:</span><span class="mi">8182</span><span class="p">,</span>
+    <span class="nx">templateEngine</span><span class="o">:</span><span class="s1">'ejs'</span>
+
+<span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="environments" class="anchor" href="#environments"><span class="octicon octicon-link"></span></a>Environments</h2>
+
+<p>With environments you can define different set of configurations depending on the environment type your app is currently running.
+it is recommended to have 4 types of environments : <code>develpment</code>, <code>testing</code>, <code>staging</code>, <code>production</code>.
+after <code>appolo.launch</code> you can always to access to current environment vars via <code>appolo.environment</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//all.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s1">'all'</span>
+    <span class="nx">someVar</span><span class="o">:</span><span class="s1">'someVar'</span>
+<span class="p">}</span>
+<span class="c1">//develpment.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s1">'develpment'</span>
+    <span class="nx">db</span><span class="o">:</span><span class="s1">'monog://develpment-url'</span>
+<span class="p">}</span>
+<span class="c1">//develpment.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s1">'testing'</span>
+    <span class="nx">db</span><span class="o">:</span><span class="s1">'monog://testing-url'</span>
+<span class="p">}</span>
+
+</pre></div>
+
+<p>if we launch our app.js with <code>NODE_ENV = testing</code></p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">launcher</span><span class="p">.</span><span class="nx">launch</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">environment</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="nx">env</span><span class="p">.</span><span class="nx">someVar</span><span class="p">,</span><span class="nx">env</span><span class="p">.</span><span class="nx">db</span><span class="p">)</span> <span class="c1">// 'testing someVar monog:://testing-url'</span>
+
+</pre></div>
+
+<h2>
+<a name="routes" class="anchor" href="#routes"><span class="octicon octicon-link"></span></a>Routes</h2>
+
+<p>you can easy define your app routes in the <code>config/routes</code> folder
+the routes are the same as you defined in <a href="http://expressjs.com/4x/api.html#router">expressjs</a> router</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s1">'/login/'</span><span class="p">,</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s1">'post'</span><span class="p">,</span>
+        <span class="nx">controller</span><span class="o">:</span> <span class="s1">'login'</span><span class="p">,</span>
+        <span class="nx">action</span><span class="o">:</span> <span class="s1">'loginUser'</span><span class="p">,</span>
+        <span class="nx">middleware</span><span class="o">:</span><span class="p">[]</span>
+        <span class="nx">locals</span><span class="o">:</span><span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s1">'/users/:id'</span><span class="p">,</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s1">'get'</span><span class="p">,</span>
+        <span class="nx">controller</span><span class="o">:</span> <span class="s1">'user'</span><span class="p">,</span>
+        <span class="nx">action</span><span class="o">:</span> <span class="s1">'getUser'</span><span class="p">,</span>
+        <span class="nx">middleware</span><span class="o">:</span><span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="nx">req</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+            <span class="c1">//do something</span>
+            <span class="nx">next</span><span class="p">();</span>
+        <span class="p">}]</span>
+        <span class="nx">locals</span><span class="o">:</span><span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+
+<p>each route have the following params:</p>
+
+<ul>
+<li>
+<code>path</code> - same as you define in expressjs</li>
+<li>
+<code>method</code> - one of <code>get</code>,<code>post</code>,<code>patch</code>,<code>delete</code>,<code>put</code>. default <code>get</code>
+</li>
+<li>
+<code>controller</code> - the name of the controller that will be crated to handle the route the controller id must have <code>Controller</code> postfix</li>
+<li>
+<code>action</code> - the action function the will be invoked to handle the route</li>
+<li>
+<code>middleware</code> - array of middleware function the will be invoked be before the controller if the next function is not called or called with error the controller won`t be created.</li>
+<li>
+<code>locals</code> - locals object the will extend res.locals </li>
+</ul><h2>
+<a name="controllers" class="anchor" href="#controllers"><span class="octicon octicon-link"></span></a>Controllers</h2>
+
+<p>Controllers are classes that handled the routes request.
+in order the router will be able to handle to request the controller class must inherit from <code>appolo.Controller</code>
+each controller action will be called with <a href="http://expressjs.com/4x/api.html#req.params">request</a> and <a href="http://expressjs.com/4x/api.html#res.status">response</a> objects.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">Controller</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'loginController'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'dataManager'</span><span class="p">]</span>
+    <span class="p">},</span>
+
+    <span class="nx">loginUser</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dataManager</span><span class="p">.</span><span class="nx">validateUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">jsonSuccess</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">serverError</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<p><code>appolo.Controller</code> also has some helper functions.</p>
+
+<h3>
+<a name="controllerrenderviewmodel" class="anchor" href="#controllerrenderviewmodel"><span class="octicon octicon-link"></span></a><code>controller.render([view,model])</code>
+</h3>
+
+<p>view render helper function will try to find and render the view  file in view folder according to the controller name and action</p>
+
+<ul>
+<li>
+<code>view</code> - the view name if different from the controller action</li>
+<li>
+<code>model</code> - the model that will be passed to the view</li>
+</ul><div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">Controller</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'loginController'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'dataManager'</span><span class="p">]</span>
+    <span class="p">},</span>
+
+    <span class="nx">index</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">({</span><span class="nx">someData</span><span class="o">:</span><span class="s1">'someData'</span><span class="p">})</span> <span class="c1">//the will render the view from viewFolder/login/index</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<h3>
+<a name="controllerjsonsuccessdata" class="anchor" href="#controllerjsonsuccessdata"><span class="octicon octicon-link"></span></a><code>controller.jsonSuccess([data])</code>
+</h3>
+
+<p>send json success response</p>
+
+<ul>
+<li>
+<code>data</code> - the data object will be passed to the response</li>
+</ul><div class="highlight highlight-javascript"><pre>    <span class="nx">login</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">jsonSuccess</span><span class="p">({</span><span class="nx">userId</span><span class="o">:</span><span class="mi">1</span><span class="p">})</span>
+    <span class="p">}</span>
+
+<span class="c1">//output</span>
+<span class="p">{</span>
+    <span class="s2">"success"</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">"userId"</span><span class="o">:</span><span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="controllerjsonerrormessage" class="anchor" href="#controllerjsonerrormessage"><span class="octicon octicon-link"></span></a><code>controller.jsonError([message])</code>
+</h3>
+
+<p>send json error response with optinal message</p>
+
+<ul>
+<li>
+<code>message</code> - the error message that will be passed to the response</li>
+</ul><div class="highlight highlight-javascript"><pre>    <span class="nx">login</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">jsonError</span><span class="p">(</span><span class="s2">"something is wrong"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="c1">//output</span>
+<span class="p">{</span>
+    <span class="s2">"success"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="o">:</span><span class="s2">"something is wrong"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="controllerservererrormessage" class="anchor" href="#controllerservererrormessage"><span class="octicon octicon-link"></span></a><code>controller.serverError([message])</code>
+</h3>
+
+<p>send response server error 500 with optinal message</p>
+
+<ul>
+<li>
+<code>message</code> - the error message that will be passed to the response</li>
+</ul><div class="highlight highlight-javascript"><pre>    <span class="nx">login</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">serverError</span><span class="p">(</span><span class="s2">"something is wrong"</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="socketio-redis-mongodb-and-more-support" class="anchor" href="#socketio-redis-mongodb-and-more-support"><span class="octicon octicon-link"></span></a>Socket.io, Redis, MongoDB and More Support</h2>
+
+<p>you can easily integrate to popular services like socket.io redis and mongoDB in appolo.
+all you have to do is to add the service configratio file to the config folder</p>
+
+<h4>
+<a name="sokcetio-example" class="anchor" href="#sokcetio-example"><span class="octicon octicon-link"></span></a>
+<a href="https://github.com/Automattic/socket.io">Sokcet.io</a> example</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">sio</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'socket.io'</span><span class="p">),</span>
+    <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo-express'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">app</span>  <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="s1">'app'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">sio</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">server</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span><span class="s1">'io'</span><span class="p">,</span> <span class="nx">io</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">io</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">),</span>
+    <span class="nx">Q</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'q'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'chatController'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">initMethod</span><span class="o">:</span> <span class="s1">'initialize'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'io'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">initialize</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">){</span>
+            <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'some_room'</span><span class="p">).</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'message'</span><span class="p">,</span><span class="s1">'client connected'</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h4>
+<a name="redis-and-q-example" class="anchor" href="#redis-and-q-example"><span class="octicon octicon-link"></span></a>
+<a href="https://github.com/mranney/node_redis">Redis</a> and <a href="https://github.com/kriskowal/q">Q</a> example</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'redis'</span><span class="p">),</span>
+    <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo-express'</span><span class="p">),</span>
+    <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'url'</span><span class="p">);</span>
+
+<span class="c1">//you can put redis connection string in appolo environments to support different redis db in different environments</span>
+<span class="kd">var</span> <span class="nx">redisURL</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">appolo</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">redisConnectionString</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">redisClient</span> <span class="o">=</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="nx">redisURL</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span> <span class="nx">redisURL</span><span class="p">.</span><span class="nx">hostname</span><span class="p">,</span> <span class="p">{</span><span class="nx">no_ready_check</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">redisURL</span><span class="p">.</span><span class="nx">auth</span><span class="p">){</span>
+    <span class="nx">redisClient</span><span class="p">.</span><span class="nx">auth</span><span class="p">(</span><span class="nx">redisURL</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span><span class="s1">'redis'</span><span class="p">,</span> <span class="nx">redisClient</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">redisClient</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">),</span>
+    <span class="nx">Q</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'q'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'dataManager'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'redis'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">getData</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">deferred</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">.</span><span class="nx">defer</span><span class="p">();</span>
+
+         <span class="k">this</span><span class="p">.</span><span class="nx">redis</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'someKey'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">err</span> <span class="o">?</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">reject</span><span class="p">()</span> <span class="o">:</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+         <span class="p">});</span>
+
+         <span class="k">return</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h4>
+<a name="mongodb-with-mongose-and-q-example" class="anchor" href="#mongodb-with-mongose-and-q-example"><span class="octicon octicon-link"></span></a>MongoDb with <a href="https://github.com/LearnBoost/mongoose">Mongose</a> and <a href="https://github.com/kriskowal/q">Q</a> example</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongoose'</span><span class="p">),,</span>
+    <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo-express'</span><span class="p">);</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">appolo</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">db</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">userSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">(</span> <span class="nx">name</span> <span class="o">:</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">});</span>
+<span class="kd">var</span> <span class="nx">userModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'User'</span><span class="p">,</span> <span class="nx">userSchema</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span><span class="s1">'db'</span><span class="p">,</span> <span class="nx">mongoose</span><span class="p">);</span>
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span><span class="s1">'UserModel'</span><span class="p">,</span> <span class="nx">userModel</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">db</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">),</span>
+    <span class="nx">Q</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'q'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'userManager'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'UserModel'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">getUser</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">deferred</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">.</span><span class="nx">defer</span><span class="p">();</span>
+
+       <span class="k">this</span><span class="p">.</span><span class="nx">UserModel</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+            <span class="nx">err</span> <span class="o">?</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">reject</span><span class="p">()</span> <span class="o">:</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="k">return</span> <span class="nx">deferred</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="loggers" class="anchor" href="#loggers"><span class="octicon octicon-link"></span></a>Loggers</h2>
+
+<p>you can easy add logger to your server just by adding the logger configuraion file to the config folder.</p>
+
+<h4>
+<a name="logger-with-winston-and-sentry" class="anchor" href="#logger-with-winston-and-sentry"><span class="octicon octicon-link"></span></a>logger with <a href="https://github.com/flatiron/winston">winston</a> and <a href="https://github.com/getsentry/sentry">sentry</a>
+</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">winston</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'winston'</span><span class="p">),</span>
+    <span class="nx">appolo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo-express'</span><span class="p">),</span>
+    <span class="nx">Sentry</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'winston-sentry'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">transports</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">appolo</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">'produnction'</span><span class="p">){</span>
+    <span class="nx">transports</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Sentry</span><span class="p">({</span>
+            <span class="nx">level</span><span class="o">:</span> <span class="s1">'warn'</span><span class="p">,</span>
+            <span class="nx">dsn</span><span class="o">:</span> <span class="s2">"senty connection string"</span><span class="p">,</span>
+            <span class="nx">json</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">timestamp</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">handleExceptions</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">patchGlobal</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}));</span>
+<span class="p">}</span>
+
+<span class="nx">transports</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="p">(</span><span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span><span class="p">.</span><span class="nx">Console</span><span class="p">)({</span>
+    <span class="nx">json</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">timestamp</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">handleExceptions</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}));</span>
+
+<span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">winston</span><span class="p">.</span><span class="nx">Logger</span><span class="p">)({</span>
+    <span class="nx">transports</span><span class="o">:</span> <span class="nx">transports</span><span class="p">,</span>
+    <span class="nx">exitOnError</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span><span class="s1">'logger'</span><span class="p">,</span> <span class="nx">logger</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">logger</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'dataManager'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">initMethod</span><span class="o">:</span> <span class="s1">'initialize'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'logger'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">initialize</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">"dataManager initialized"</span><span class="p">,{</span><span class="nx">someData</span><span class="o">:</span><span class="s1">'someData'</span><span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="class-system" class="anchor" href="#class-system"><span class="octicon octicon-link"></span></a>Class System</h2>
+
+<p>appolo have powerful class system based on <a href="https://github.com/shmoop207/appolo-class">appolo-class</a>.
+enables you write your server code classes in elegant way with <code>inheritance</code> and <code>mixins</code> for better code reuse.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">Rectangle</span> <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">area</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Square</span> <span class="o">=</span> <span class="nx">Rectangle</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">side</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">callParent</span><span class="p">(</span><span class="nx">side</span><span class="p">,</span> <span class="nx">side</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">square</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">square</span><span class="p">.</span><span class="nx">area</span><span class="p">())</span> <span class="c1">// 36</span>
+</pre></div>
+
+<h2>
+<a name="dependency-injection-system" class="anchor" href="#dependency-injection-system"><span class="octicon octicon-link"></span></a>Dependency Injection System</h2>
+
+<p>appolo have powerful <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> system based on <a href="https://github.com/shmoop207/appolo-inject">appolo-inject</a>.
+enables you to organize your code in <a href="http://en.wikipedia.org/wiki/Loose_coupling">loose coupling</a> classes.
+you can always access to injector via <code>appolo-inject</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'dataManager'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nx">getData</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'fooController'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">initMethod</span><span class="o">:</span><span class="s1">'initialize'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'dataManager'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="p">},</span>
+
+    <span class="nx">initialize</span><span class="o">:</span><span class="nx">fucntion</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span>  <span class="k">this</span><span class="p">.</span><span class="nx">dataManager</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
+        <span class="c1">//do something</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">fooController</span> <span class="o">=</span> <span class="nx">appolo</span><span class="p">.</span><span class="nx">inject</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="s1">'fooController'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fooController</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="event-dispatcher" class="anchor" href="#event-dispatcher"><span class="octicon octicon-link"></span></a>Event Dispatcher</h2>
+
+<p>appolo have built in event dispatcher to enable classes to listen and fire events
+Event Dispatcher has the following methods:</p>
+
+<h3>
+<a name="eventdispatcheroneventcallbackscope" class="anchor" href="#eventdispatcheroneventcallbackscope"><span class="octicon octicon-link"></span></a><code>eventDispatcher.on(event,callback,[scope])</code>
+</h3>
+
+<p>add event listener</p>
+
+<ul>
+<li>
+<code>event</code> - event name.</li>
+<li>
+<code>callback</code> - callback function that will triggered on event name.</li>
+<li>
+<code>scope</code> - optinal, the scope of the <code>callback</code> function default: <code>this</code>.</li>
+</ul><h3>
+<a name="eventdispatcheruneventcallbackscope" class="anchor" href="#eventdispatcheruneventcallbackscope"><span class="octicon octicon-link"></span></a><code>eventDispatcher.un(event,callback,[scope])</code>
+</h3>
+
+<p>remove event listener all the arguments must be <code>===</code> to on method else it won`t be removed.</p>
+
+<ul>
+<li> <code>event</code> - event name.</li>
+<li> <code>callback</code> - callback function.</li>
+<li> <code>scope</code> - optinal, the scope of the callback function.</li>
+</ul><h3>
+<a name="eventdispatcherfireeventeventarguments" class="anchor" href="#eventdispatcherfireeventeventarguments"><span class="octicon octicon-link"></span></a><code>eventDispatcher.fireEvent(event,[arguments])</code>
+</h3>
+
+<p>fireEvent - triggers the callback functions on given event name</p>
+
+<ul>
+<li><code>eventName</code></li>
+<li>
+<code>arguments</code> -  all the rest <code>arguments</code> will be applied on the <code>callback</code> function</li>
+</ul><div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">EventDispatcher</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'fooManager'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nx">notifyUsers</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">'someEventName'</span><span class="p">,{</span><span class="nx">someData</span><span class="o">:</span><span class="s1">'someData'</span><span class="p">})</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'fooController'</span><span class="p">,</span>
+        <span class="nx">initMethod</span><span class="o">:</span><span class="s1">'initialize'</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'fooManager'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">initialize</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">fooManager</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'someEventName'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">someData</span><span class="p">)</span>
+        <span class="p">},</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">doSomething</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="appolo-bootstrap" class="anchor" href="#appolo-bootstrap"><span class="octicon octicon-link"></span></a>Appolo Bootstrap</h2>
+
+<p>once it lanched appolo try to find appolo <code>bootstrap</code> class and call it's <code>run</code> mehtod.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">appolo</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'appolo'</span><span class="p">);</span>
+
+<span class="nx">appolo</span><span class="p">.</span><span class="nx">Class</span><span class="p">.</span><span class="nx">define</span><span class="p">({</span>
+    <span class="nx">$config</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span><span class="s1">'appolo-bootstrap'</span><span class="p">,</span>
+        <span class="nx">singleton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">inject</span><span class="o">:</span><span class="p">[</span><span class="s1">'someManager1'</span><span class="p">,</span><span class="s1">'someManager2'</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">run</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">//start your application logic here</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">someManager1</span><span class="p">.</span><span class="nx">doSomeThing</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<div class="highlight highlight-javascript"><pre>    <span class="nx">grunt</span> <span class="nx">test</span>
+</pre></div>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The <code>appolo</code> library is released under the MIT license. So feel free to modify and distribute it as you wish.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Appolo-express maintained by <a href="https://github.com/shmoop207">shmoop207</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
