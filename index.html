@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Appolo-express : " />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Appolo-express</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Appolo-express by shmoop207</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/shmoop207/appolo-express">View on GitHub</a>
-
-          <h1 id="project_title">Appolo-express</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/shmoop207/appolo-express/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/shmoop207/appolo-express/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>Appolo-express</h1>
+          <h2></h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/shmoop207/appolo-express/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/shmoop207/appolo-express/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/shmoop207/appolo-express" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
 <a name="appolo-express---" class="anchor" href="#appolo-express---"><span class="octicon octicon-link"></span></a>Appolo Express  <a href="https://travis-ci.org/shmoop207/appolo-express"><img src="https://travis-ci.org/shmoop207/appolo-express.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/shmoop207/appolo-express"><img src="https://david-dm.org/shmoop207/appolo-express.png" alt="Dependencies status"></a>
 </h1>
 
-<p>Appolo Express is an MVC Framework for Node.js build on top <a href="http://expressjs.com/">expressjs</a> 4. 
-Build with <a href="www.github.com/shmoop207/appolo-class">appolo-class</a> class system and <a href="www.github.com/shmoop207/appolo-inject">appolo-inject</a> dependency injection system.</p>
+<p><img src="https://dl.dropboxusercontent.com/u/19179794/appollo.png" alt="appolo"></p>
 
-<p>Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.</p>
+<p>Appolo Express is an MVC Framework for Node.js build on top <a href="http://expressjs.com/">expressjs</a> 4. 
+Build with <a href="https://www.github.com/shmoop207/appolo-class">appolo-class</a> class system and <a href="https://www.github.com/shmoop207/appolo-inject">appolo-inject</a> dependency injection system.
+Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.</p>
 
 <h2>
 <a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
@@ -86,7 +87,7 @@ Build with <a href="www.github.com/shmoop207/appolo-class">appolo-class</a> clas
     <span class="o">-</span> <span class="nx">redis</span>
         <span class="o">-</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">js</span>
     <span class="p">...</span>
-<span class="o">-</span> <span class="kr">public</span>
+<span class="o">-</span> <span class="nx">public_folder</span>
 <span class="o">-</span> <span class="nx">server</span>
     <span class="o">-</span> <span class="nx">controllers</span>
     <span class="o">-</span> <span class="nx">managers</span>
@@ -236,6 +237,24 @@ after <code>appolo.launch</code> you can always to access to current environment
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="nx">env</span><span class="p">.</span><span class="nx">someVar</span><span class="p">,</span><span class="nx">env</span><span class="p">.</span><span class="nx">db</span><span class="p">)</span> <span class="c1">// 'testing someVar monog:://testing-url'</span>
 
+</pre></div>
+
+<h2>
+<a name="express-configurations" class="anchor" href="#express-configurations"><span class="octicon octicon-link"></span></a>Express Configurations</h2>
+
+<p>you can configure express app and add custom middlewares by adding configuration file to the express folder.
+the express configuration file is called after the default express configurations loaded if your want to load your own custom express configurations set <code>loadDefaultConfigurations : false</code> in the appolo launch</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">favicon</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'static-favicon'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">'/*'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">);</span>
+        <span class="nx">next</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">favicon</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 
 <h2>
@@ -735,18 +754,15 @@ Event Dispatcher has the following methods:</p>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>The <code>appolo</code> library is released under the MIT license. So feel free to modify and distribute it as you wish.</p>
-      </section>
+        </section>
+
+        <footer>
+          Appolo-express is maintained by <a href="https://github.com/shmoop207">shmoop207</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Appolo-express maintained by <a href="https://github.com/shmoop207">shmoop207</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
