@@ -1,9 +1,10 @@
 Appolo Express  [![Build Status](https://travis-ci.org/shmoop207/appolo-express.png?branch=master)](https://travis-ci.org/shmoop207/appolo-express) [![Dependencies status](https://david-dm.org/shmoop207/appolo-express.png)](https://david-dm.org/shmoop207/appolo-express)
 =======
 
+![appolo](https://dl.dropboxusercontent.com/u/19179794/appollo.png)
+
 Appolo Express is an MVC Framework for Node.js build on top [expressjs][1] 4. 
 Build with [appolo-class][2] class system and [appolo-inject][3] dependency injection system.
-
 Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.
 
 
@@ -47,7 +48,7 @@ the environments folder must to exist every thing else is optional appolo will r
     - redis
         - redis.js
     ...
-- public
+- public_folder
 - server
     - controllers
     - managers
@@ -167,6 +168,21 @@ console.log(env.name,env.someVar,env.db) // 'testing someVar monog:://testing-ur
 
 ```
 
+##Express Configurations##
+you can configure express app and add custom middlewares by adding configuration file to the express folder.
+the express configuration file is called after the default express configurations loaded if your want to load your own custom express configurations set `loadDefaultConfigurations : false` in the appolo launch
+```javascript
+var favicon = require('static-favicon');
+
+module.exports = function (app) {
+    app.all('/*', function (req, res, next) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    }
+    
+    app.use(favicon());
+}
+```
 ##Routes ##
 you can easy define your app routes in the `config/routes` folder
 the routes are the same as you defined in [expressjs][5] router
