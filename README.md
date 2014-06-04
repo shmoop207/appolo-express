@@ -251,9 +251,8 @@ send json success response
     login:function(req,res){
         this.jsonSuccess({userId:1})
     }
-```
-output
-```JSON
+
+//output
 {
     "success":true,
     "data":{
@@ -271,9 +270,8 @@ send json error response with optinal message
     login:function(req,res){
         this.jsonError("something is wrong")
     }
-```
-output
-```JSON
+    
+//output
 {
     "success":false,
     "message":"something is wrong"
