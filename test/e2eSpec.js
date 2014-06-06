@@ -11,7 +11,7 @@ describe('Appolo Express', function () {
 
         it('should should call route and get json', function (done) {
 
-            chai.request('http://localhost:8182')
+            chai.request('http://localhost:8183')
                 .get('/test/')
                 .res(function (res) {
                     res.should.to.have.status(200);

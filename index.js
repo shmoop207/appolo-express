@@ -10,6 +10,7 @@ module.exports = {
     loader : appolo.loader,
     launcher : require('./lib/launcher/launcher'),
     environment : appolo.environment,
+    express : require('express'),
     _ : appolo._
 }
 
