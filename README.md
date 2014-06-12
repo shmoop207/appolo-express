@@ -18,45 +18,51 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * Easy integrate third party services
   * Easy to get started
   
- 
+##Live Demo ##
+multi room chat demo with `appolo-express` `socket.io` and `redis`.
+live demo: [http://appolo-chat-example.herokuapp.com][4]
+source code: [https://github.com/shmoop207/appolo-chat-example][5]
+
 ## Installation ##
 ```javascript
 npm install appolo-express --save
 ```
 
-##Quick start ##
+##Quick Start ##
 in your app.js file
 ```javascript
 var appolo  = require('appolo');
 appolo.launcher.launch();
 ```
 
+
 ##Recommended Directory Structure ##
 the environments folder must to exist every thing else is optional appolo will require all files in the config and server folders but the environments folder will be loaded first.
 ```javascript
-- config
-    - enviremnts
-        - all.js
-        - develpment.js
-        - production.js
-    - express
-        -express.js
-    - loggers
-        - logger.js
-    - routes
-        routes.js
-    - redis
-        - redis.js
+|- config
+    |- enviremnts
+        |- all.js
+        |- develpment.js
+        |- production.js
+    |- express
+        |- express.js
+    |- loggers
+        |- logger.js
+    |- routes
+        |- routes.js
+    |- redis
+        |- redis.js
     ...
-- public_folder
-- server
-    - controllers
-    - managers
-    - services
-    - views
-    - bootstrap.js
+|- public_folder
+|- server
+    |- controllers
+    |- managers
+    |- middlewares
+    |- services
+    |- views
+    |- bootstrap.js
     ...
-- app.js
+|- app.js
    
 ```
 
@@ -84,7 +90,7 @@ this is optinal if the class is not defined nothing will happen.
 ####options.templateEngine####
 Type :`string`, Default: 'swig'
 the template engine that will used to render the views
-the template engine using the [consolidate][4] module
+the template engine using the [consolidate][6] module
 
 ####options.viewsFolder####
 Type :`string`, Default: '/server/views'
@@ -185,7 +191,7 @@ module.exports = function (app) {
 ```
 ##Routes ##
 you can easy define your app routes in the `config/routes` folder
-the routes are the same as you defined in [expressjs][5] router
+the routes are the same as you defined in [expressjs][7] router
 ```javascript
 module.exports = [
     {
@@ -221,7 +227,7 @@ each route have the following params:
 ##Controllers ##
 Controllers are classes that handled the routes request.
 in order the router will be able to handle to request the controller class must inherit from `appolo.Controller`
-each controller action will be called with [request][6] and [response][7] objects.
+each controller action will be called with [request][8] and [response][9] objects.
 
 ```javascript
 var appolo = require('appolo');
@@ -233,8 +239,8 @@ module.exports = appolo.Controller.define({
 
     loginUser:function(req,res){
         this.dataManager.validateUser(req.body.username,req.body.password)
-        .then(this.jsonSuccess.bind(this)
-        .fail(this.serverError.bind(this);
+            .then(this.jsonSuccess.bind(this))
+            .fail(this.serverError.bind(this));
     }
 })
 ```
@@ -264,11 +270,11 @@ send json success response
  - `data` - the data object will be passed to the response
 
 ```javascript
-    login:function(req,res){
-        this.jsonSuccess({userId:1})
-    }
-
-//output
+login:function(req,res){
+    this.jsonSuccess({userId:1})
+}
+```
+```javascript
 {
     "success":true,
     "data":{
@@ -283,11 +289,11 @@ send json error response with optinal message
  - `message` - the error message that will be passed to the response
 
 ```javascript
-    login:function(req,res){
-        this.jsonError("something is wrong")
-    }
-    
-//output
+login:function(req,res){
+    this.jsonError("something is wrong")
+}
+```
+```javascript
 {
     "success":false,
     "message":"something is wrong"
@@ -300,15 +306,56 @@ send response server error 500 with optinal message
  - `message` - the error message that will be passed to the response
 
 ```javascript
-    login:function(req,res){
-        this.serverError("something is wrong")
+login:function(req,res){
+    this.serverError("something is wrong")
+}
+```
+
+##Middlewares ##
+middlewrae class will run before the action of the controller is invoked.
+you must and declare the middleware `id` in the route and call `next` function in order to continue the request.
+the middleware call must impelmet the run method and inherit from `appolo.Middleware`
+
+example : in routes file
+```javascript
+module.exports = [
+    {
+        path: '/someRoute',
+        method: 'get',
+        controller: 'someName',
+        action: 'someAction',
+        middleware: ['authMiddleware']
     }
 ```
+in middleware file
+```javascript
+var appolo = require('appolo');
+module.exports = appolo.Middleware.define({
+    $config:{
+        id:'authMiddleware',
+        inject:['authManager']
+    },
+
+    run:function(req,res,next,route){
+        this.authManager.validateToken(req.headers.authorization)
+            .then(this._onSuccess.bind(this))
+            .fail(this._onError.bind(this))
+    },
+    _onSuccess:function(user){
+        this.req.user = user;
+        this.next();
+    },
+    _onError:function(){
+        this.res.send("401")
+    }
+})
+```
+
 ##Socket.io, Redis, MongoDB and More Support
 you can easily integrate to popular services like socket.io redis and mongoDB in appolo.
 all you have to do is to add the service configratio file to the config folder
 
-####[Sokcet.io][8] example####
+####[Sokcet.io][10] example####
 ```javascript
 var sio = require('socket.io'),
     appolo = require('appolo-express');
@@ -341,7 +388,7 @@ appolo.Class.define({
 
 ```
 
-####[Redis][9] and [Q][10] example####
+####[Redis][11] and [Q][12] example####
 ```javascript
 var redis = require('redis'),
     appolo = require('appolo-express'),
@@ -381,7 +428,7 @@ appolo.Class.define({
 
 ```
 
-####MongoDb with [Mongose][11] and [Q][12] example####
+####MongoDb with [Mongose][13] and [Q][14] example####
 ```javascript
 var mongoose = require('mongoose'),,
     appolo = require('appolo-express');
@@ -421,7 +468,7 @@ appolo.Class.define({
 
 ##Loggers ##
 you can easy add logger to your server just by adding the logger configuraion file to the config folder.
-####logger with [winston][13] and [sentry][14]####
+####logger with [winston][15] and [sentry][16]####
 ```javascript
 var winston = require('winston'),
     appolo = require('appolo-express'),
@@ -475,7 +522,7 @@ appolo.Class.define({
 
 
 ##Class System ##
-appolo have powerful class system based on [appolo-class][15].
+appolo have powerful class system based on [appolo-class][17].
 enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
 ```javascript
 var appolo  = require('appolo');
@@ -501,8 +548,8 @@ console.log(square.area()) // 36
 ```
 
 ##Dependency Injection System ##
-appolo have powerful [Dependency Injection][16] system based on [appolo-inject][17].
-enables you to organize your code in [loose coupling][18] classes.
+appolo have powerful [Dependency Injection][18] system based on [appolo-inject][19].
+enables you to organize your code in [loose coupling][20] classes.
 you can always access to injector via `appolo-inject`.
 ```javascript
 var appolo  = require('appolo');
@@ -560,7 +607,7 @@ remove event listener all the arguments must be `===` to on method else it won`t
 ###`eventDispatcher.fireEvent(event,[arguments])`
 fireEvent - triggers the callback functions on given event name
 
-- `eventName`
+- `eventName` - event name
 - `arguments` -  all the rest `arguments` will be applied on the `callback` function
 
 ```javascript
@@ -617,6 +664,8 @@ appolo.Class.define({
 
 ```
 
+##Appolo Reset ##
+you can restet applo sever by calling `appolo.reset()` this will clean all enviremnts, confg, injector and close the server  
 
     
 ## Tests ##
@@ -632,18 +681,20 @@ The `appolo` library is released under the MIT license. So feel free to modify a
   [1]: http://expressjs.com/
   [2]: https://www.github.com/shmoop207/appolo-class
   [3]: https://www.github.com/shmoop207/appolo-inject
-  [4]: https://www.npmjs.org/package/consolidate
-  [5]: http://expressjs.com/4x/api.html#router
-  [6]: http://expressjs.com/4x/api.html#req.params
-  [7]: http://expressjs.com/4x/api.html#res.status
-  [8]: https://github.com/Automattic/socket.io
-  [9]: https://github.com/mranney/node_redis
-  [10]: https://github.com/kriskowal/q
-  [11]: https://github.com/LearnBoost/mongoose
+  [4]: http://appolo-chat-example.herokuapp.com
+  [5]: https://github.com/shmoop207/appolo-chat-example
+  [6]: https://www.npmjs.org/package/consolidate
+  [7]: http://expressjs.com/4x/api.html#router
+  [8]: http://expressjs.com/4x/api.html#req.params
+  [9]: http://expressjs.com/4x/api.html#res.status
+  [10]: https://github.com/Automattic/socket.io
+  [11]: https://github.com/mranney/node_redis
   [12]: https://github.com/kriskowal/q
-  [13]: https://github.com/flatiron/winston
-  [14]: https://github.com/getsentry/sentry
-  [15]: https://github.com/shmoop207/appolo-class
-  [16]: http://en.wikipedia.org/wiki/Dependency_injection
-  [17]: https://github.com/shmoop207/appolo-inject
-  [18]: http://en.wikipedia.org/wiki/Loose_coupling
+  [13]: https://github.com/LearnBoost/mongoose
+  [14]: https://github.com/kriskowal/q
+  [15]: https://github.com/flatiron/winston
+  [16]: https://github.com/getsentry/sentry
+  [17]: https://github.com/shmoop207/appolo-class
+  [18]: http://en.wikipedia.org/wiki/Dependency_injection
+  [19]: https://github.com/shmoop207/appolo-inject
+  [20]: http://en.wikipedia.org/wiki/Loose_coupling
