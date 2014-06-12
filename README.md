@@ -4,9 +4,7 @@ Appolo Express  [![Build Status](https://travis-ci.org/shmoop207/appolo-express.
 ![appolo](https://dl.dropboxusercontent.com/u/19179794/appollo.png)
 
 Appolo Express is an MVC Framework for Node.js build on top [expressjs][1] 4. 
-
 Build with [appolo-class][2] class system and [appolo-inject][3] dependency injection system.
-
 Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.
 
 
