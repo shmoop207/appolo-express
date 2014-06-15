@@ -1,9 +1,9 @@
-Appolo Express  [![Build Status](https://travis-ci.org/shmoop207/appolo-express.png?branch=master)](https://travis-ci.org/shmoop207/appolo-express) [![Dependencies status](https://david-dm.org/shmoop207/appolo-express.png)](https://david-dm.org/shmoop207/appolo-express)
+Appolo Express  [![Build Status](https://travis-ci.org/shmoop207/appolo-express.png?branch=master)](https://travis-ci.org/shmoop207/appolo-express) [![Dependencies status](https://david-dm.org/shmoop207/appolo-express.png)](https://david-dm.org/shmoop207/appolo-express) [![NPM version](https://badge.fury.io/js/appolo-express.svg)](https://badge.fury.io/js/appolo-express)
 =======
 
 ![appolo](https://dl.dropboxusercontent.com/u/19179794/appollo.png)
 
-Appolo Express is an MVC Framework for Node.js build on top [expressjs][1] 4.<br>
+Appolo Express is an MVC Framework for Node.js build on top [expressjs][1] 4. <br>
 Build with [appolo-class][2] class system and [appolo-inject][3] dependency injection system.<br>
 Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.
 
@@ -20,9 +20,7 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   
 ##Live Demo ##
 multi room chat demo with `appolo-express` `socket.io` and `redis`.
-
 live demo: [http://appolo-chat-example.herokuapp.com][4]
-
 source code: [https://github.com/shmoop207/appolo-chat-example][5]
 
 ## Installation ##
@@ -35,6 +33,13 @@ in your app.js file
 ```javascript
 var appolo  = require('appolo');
 appolo.launcher.launch();
+```
+
+##Appolo Express Boilerplate
+small expample projet to get you started with appolo.
+source code : [https://github.com/shmoop207/appolo-express-boilerplate][6]
+```bash
+git clone https://github.com/shmoop207/appolo-express-boilerplate.git
 ```
 
 
@@ -92,7 +97,7 @@ this is optinal if the class is not defined nothing will happen.
 ####options.templateEngine####
 Type :`string`, Default: 'swig'
 the template engine that will used to render the views
-the template engine using the [consolidate][6] module
+the template engine using the [consolidate][7] module
 
 ####options.viewsFolder####
 Type :`string`, Default: '/server/views'
@@ -193,7 +198,7 @@ module.exports = function (app) {
 ```
 ##Routes ##
 you can easy define your app routes in the `config/routes` folder
-the routes are the same as you defined in [expressjs][7] router
+the routes are the same as you defined in [expressjs][8] router
 ```javascript
 module.exports = [
     {
@@ -226,10 +231,29 @@ each route have the following params:
  - `middleware` - array of middleware function the will be invoked be before the controller if the next function is not called or called with error the controller won`t be created.
  - `locals` - locals object the will extend res.locals 
 
+you can also define the route in the controller `config`.
+you can omit the controller name it will be set to the current controller id
+```javascript
+var appolo = require('appolo')
+module.exports = Controller.define({
+    $config: {
+        id: 'testController',
+        routes: [{
+            path: '/test/',
+            method: 'get',
+            action: 'test',
+        }]
+    },
+    test: function (req, res) {
+        res.json({working: true});
+    }
+})
+```
+
 ##Controllers ##
 Controllers are classes that handled the routes request.
 in order the router will be able to handle to request the controller class must inherit from `appolo.Controller`
-each controller action will be called with [request][8] and [response][9] objects.
+each controller action will be called with [request][9] and [response][10] objects.
 
 ```javascript
 var appolo = require('appolo');
@@ -357,7 +381,7 @@ module.exports = appolo.Middleware.define({
 you can easily integrate to popular services like socket.io redis and mongoDB in appolo.
 all you have to do is to add the service configratio file to the config folder
 
-####[Sokcet.io][10] example####
+####[Sokcet.io][11] example####
 ```javascript
 var sio = require('socket.io'),
     appolo = require('appolo-express');
@@ -390,7 +414,7 @@ appolo.Class.define({
 
 ```
 
-####[Redis][11] and [Q][12] example####
+####[Redis][12] and [Q][13] example####
 ```javascript
 var redis = require('redis'),
     appolo = require('appolo-express'),
@@ -430,7 +454,7 @@ appolo.Class.define({
 
 ```
 
-####MongoDb with [Mongose][13] and [Q][14] example####
+####MongoDb with [Mongose][14] and [Q][15] example####
 ```javascript
 var mongoose = require('mongoose'),,
     appolo = require('appolo-express');
@@ -470,7 +494,7 @@ appolo.Class.define({
 
 ##Loggers ##
 you can easy add logger to your server just by adding the logger configuraion file to the config folder.
-####logger with [winston][15] and [sentry][16]####
+####logger with [winston][16] and [sentry][17]####
 ```javascript
 var winston = require('winston'),
     appolo = require('appolo-express'),
@@ -524,7 +548,7 @@ appolo.Class.define({
 
 
 ##Class System ##
-appolo have powerful class system based on [appolo-class][17].
+appolo have powerful class system based on [appolo-class][18].
 enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
 ```javascript
 var appolo  = require('appolo');
@@ -550,8 +574,8 @@ console.log(square.area()) // 36
 ```
 
 ##Dependency Injection System ##
-appolo have powerful [Dependency Injection][18] system based on [appolo-inject][19].
-enables you to organize your code in [loose coupling][20] classes.
+appolo have powerful [Dependency Injection][19] system based on [appolo-inject][20].
+enables you to organize your code in [loose coupling][21] classes.
 you can always access to injector via `appolo-inject`.
 ```javascript
 var appolo  = require('appolo');
@@ -685,18 +709,19 @@ The `appolo` library is released under the MIT license. So feel free to modify a
   [3]: https://www.github.com/shmoop207/appolo-inject
   [4]: http://appolo-chat-example.herokuapp.com
   [5]: https://github.com/shmoop207/appolo-chat-example
-  [6]: https://www.npmjs.org/package/consolidate
-  [7]: http://expressjs.com/4x/api.html#router
-  [8]: http://expressjs.com/4x/api.html#req.params
-  [9]: http://expressjs.com/4x/api.html#res.status
-  [10]: https://github.com/Automattic/socket.io
-  [11]: https://github.com/mranney/node_redis
-  [12]: https://github.com/kriskowal/q
-  [13]: https://github.com/LearnBoost/mongoose
-  [14]: https://github.com/kriskowal/q
-  [15]: https://github.com/flatiron/winston
-  [16]: https://github.com/getsentry/sentry
-  [17]: https://github.com/shmoop207/appolo-class
-  [18]: http://en.wikipedia.org/wiki/Dependency_injection
-  [19]: https://github.com/shmoop207/appolo-inject
-  [20]: http://en.wikipedia.org/wiki/Loose_coupling
+  [6]: https://github.com/shmoop207/appolo-express-boilerplate
+  [7]: https://www.npmjs.org/package/consolidate
+  [8]: http://expressjs.com/4x/api.html#router
+  [9]: http://expressjs.com/4x/api.html#req.params
+  [10]: http://expressjs.com/4x/api.html#res.status
+  [11]: https://github.com/Automattic/socket.io
+  [12]: https://github.com/mranney/node_redis
+  [13]: https://github.com/kriskowal/q
+  [14]: https://github.com/LearnBoost/mongoose
+  [15]: https://github.com/kriskowal/q
+  [16]: https://github.com/flatiron/winston
+  [17]: https://github.com/getsentry/sentry
+  [18]: https://github.com/shmoop207/appolo-class
+  [19]: http://en.wikipedia.org/wiki/Dependency_injection
+  [20]: https://github.com/shmoop207/appolo-inject
+  [21]: http://en.wikipedia.org/wiki/Loose_coupling
