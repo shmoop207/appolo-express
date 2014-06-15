@@ -19,9 +19,9 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * Easy to get started
   
 ##Live Demo ##
-multi room chat demo with `appolo-express` `socket.io` and `redis`.
-live demo: [http://appolo-chat-example.herokuapp.com][4]
-source code: [https://github.com/shmoop207/appolo-chat-example][5]
+multi room chat demo with `appolo-express` `socket.io` and `redis`.<br>
+live demo: [http://appolo-chat-example.herokuapp.com][4].<br>
+source code: [https://github.com/shmoop207/appolo-chat-example][5].
 
 ## Installation ##
 ```javascript
@@ -36,7 +36,7 @@ appolo.launcher.launch();
 ```
 
 ##Appolo Express Boilerplate
-small expample projet to get you started with appolo.
+small expample projet to get you started with appolo.<br>
 source code : [https://github.com/shmoop207/appolo-express-boilerplate][6]
 ```bash
 git clone https://github.com/shmoop207/appolo-express-boilerplate.git
@@ -231,7 +231,7 @@ each route have the following params:
  - `middleware` - array of middleware function the will be invoked be before the controller if the next function is not called or called with error the controller won`t be created.
  - `locals` - locals object the will extend res.locals 
 
-you can also define the route in the controller `config`.
+you can also define the route in the controller `config`.<br>
 you can omit the controller name it will be set to the current controller id
 ```javascript
 var appolo = require('appolo')
