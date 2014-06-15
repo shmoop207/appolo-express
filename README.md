@@ -420,7 +420,8 @@ var redis = require('redis'),
     appolo = require('appolo-express'),
     url = require('url');
 
-//you can put redis connection string in appolo environments to support different redis db in different environments
+//you can put redis connection string in appolo environments to support 
+//different redis db in different environments
 var redisURL = url.parse(appolo.environment.redisConnectionString);
 var redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 if(redisURL.auth){
