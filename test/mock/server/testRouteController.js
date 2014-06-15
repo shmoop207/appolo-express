@@ -6,7 +6,7 @@ module.exports = Controller.define({
             {
                 path: '/test/route/',
                 method: 'get',
-                action: 'test',
+                action: 'test'
             }
         ]
     },
