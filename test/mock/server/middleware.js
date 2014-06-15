@@ -6,7 +6,7 @@ module.exports = Middleware.define({
     },
 
     run:function(req,res,next){
-        next();
+        res.send({working:true,middleware:true})
     }
 
 })

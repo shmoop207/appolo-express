@@ -4,6 +4,13 @@ module.exports = [
         method: 'get',
         controller: 'test',
         action: 'test',
-        middleware:[function(req,res,next){next()},'testMiddleware']
+        middleware:[function(req,res,next){next()}]
+    },
+    {
+        path: '/test/middleware/',
+        method: 'get',
+        controller: 'test',
+        action: 'test',
+        middleware:['testMiddleware']
     }
 ];
