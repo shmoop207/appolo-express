@@ -12,7 +12,7 @@ module.exports = {
     launcher : require('./lib/launcher/launcher'),
     environment : appolo.environment,
     express : require('express'),
-    Joi : require('Joi'),
+    Joi : require('joi'),
     _ : appolo._
 }
 
