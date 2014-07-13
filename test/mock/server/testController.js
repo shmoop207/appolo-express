@@ -7,6 +7,9 @@ module.exports = Controller.define({
 
     test:function(req,res){
         res.json({working:true})
+    },
+    validaion:function(req,res){
+        res.json(req.model)
     }
 
 })

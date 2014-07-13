@@ -1,3 +1,5 @@
+var Joi = require('joi');
+
 module.exports = [
     {
         path: '/test/',
@@ -12,5 +14,15 @@ module.exports = [
         controller: 'test',
         action: 'test',
         middleware:['testMiddleware']
+    },
+    {
+        path: '/test/validations/',
+        method: 'get',
+        controller: 'test',
+        action: 'validaion',
+        validations:{
+            username: Joi.string().alphanum().min(3).max(30).required(),
+            password: Joi.string().alphanum().min(3).max(30).required()
+        }
     }
 ];
