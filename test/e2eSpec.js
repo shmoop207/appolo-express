@@ -28,7 +28,7 @@ describe('Appolo Express', function () {
         it('should should call route from controller', function (done) {
 
             chai.request('http://localhost:8183')
-                .get('/test/route/?username=11')
+                .get('/test/route/?user_name=11')
                 .res(function (res) {
                     res.should.to.have.status(200);
                     res.should.to.be.json;
@@ -38,6 +38,8 @@ describe('Appolo Express', function () {
                     res.body.working.should.be.ok
 
                     res.body.controllerName.should.be.eq('testRouteController')
+
+                    res.body.model.userName.should.ok
 
                     done();
                 });

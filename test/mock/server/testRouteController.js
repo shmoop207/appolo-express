@@ -7,7 +7,7 @@ module.exports = Controller.define({
             {
                 abstract:true,
                 validations:{
-                    username:validator.string().required()
+                    user_name:validator.string().required()
                 }
             },
             {
@@ -19,7 +19,7 @@ module.exports = Controller.define({
     },
 
     test: function (req, res) {
-        res.json({working: true, controllerName: this.route.controller})
+        res.json({working: true, controllerName: this.route.controller,model:req.model})
     }
 
 })
