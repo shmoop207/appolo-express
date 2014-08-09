@@ -13,6 +13,7 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * Powerful class system
   * dependency injection system
   * simple routing system
+  * routes validation
   * Manage easily configurations and environments 
   * Simple folder structures
   * Easy integrate third party services
@@ -255,11 +256,57 @@ module.exports = Controller.define({
     }
 })
 ```
+##Routes Validation ##
+you can add validations to your routes the action controller will be called only if the route params are valid.<br>
+validations syntax is done by using [joi][11] module.<br>
+the validator takes request params from `req.param` , `req.qurey` and `req.body`, after validation the request params will be on `req.model`.
+
+```javascript
+var appolo = require('appolo'),
+    validator = appolo.validator;
+
+module.exports = Controller.define({
+    $config: {
+        id: 'testController',
+        inject:['dataManager']
+        routes: [{
+            path: '/search/',
+            method: 'get',
+            action: 'search',
+             validations:{
+                    search:validator.string().required(),
+                    pageSize:validator.number().default(20),
+                    page:validator.number().default(1)
+                }
+        }]
+    },
+    search: function (req, res) {
+        var model = req.model;
+        
+        this.dataManager.getSearchResults(model.search,model.page,model.pageSize)
+            .then(this.jsonSuccess.bind(this))
+            .fail(this.serverError.bind(this));
+    }
+})
+```
+
+if the request params are not valid `400 Bad Request` will be sent and json with validation error.
+```javascript
+{
+    status: 400,
+    statusText: "Bad Request",
+    errors: {
+        symbol: [
+            "symbol is required"
+        ]
+    }
+}
+```
 
 ##Controllers ##
 Controllers are classes that handled the routes request.
 in order the router will be able to handle to request the controller class must inherit from `appolo.Controller`
-each controller action will be called with [request][11] and [response][12] objects.
+each controller action will be called with [request][12] and [response][13] objects.
 
 ```javascript
 var appolo = require('appolo');
@@ -387,7 +434,7 @@ module.exports = appolo.Middleware.define({
 you can easily integrate to popular services like socket.io redis and mongoDB in appolo.
 all you have to do is to add the service configratio file to the config folder
 
-####[Sokcet.io][13] example####
+####[Sokcet.io][14] example####
 ```javascript
 var sio = require('socket.io'),
     appolo = require('appolo-express');
@@ -420,7 +467,7 @@ appolo.Class.define({
 
 ```
 
-####[Redis][14] and [Q][15] example####
+####[Redis][15] and [Q][16] example####
 ```javascript
 var redis = require('redis'),
     appolo = require('appolo-express'),
@@ -461,7 +508,7 @@ appolo.Class.define({
 
 ```
 
-####MongoDb with [Mongose][16] and [Q][17] example####
+####MongoDb with [Mongose][17] and [Q][18] example####
 ```javascript
 var mongoose = require('mongoose'),,
     appolo = require('appolo-express');
@@ -501,7 +548,7 @@ appolo.Class.define({
 
 ##Loggers ##
 you can easy add logger to your server just by adding the logger configuraion file to the config folder.
-####logger with [winston][18] and [sentry][19]####
+####logger with [winston][19] and [sentry][20]####
 ```javascript
 var winston = require('winston'),
     appolo = require('appolo-express'),
@@ -555,7 +602,7 @@ appolo.Class.define({
 
 
 ##Class System ##
-appolo have powerful class system based on [appolo-class][20].
+appolo have powerful class system based on [appolo-class][21].
 enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
 ```javascript
 var appolo  = require('appolo');
@@ -581,8 +628,8 @@ console.log(square.area()) // 36
 ```
 
 ##Dependency Injection System ##
-appolo have powerful [Dependency Injection][21] system based on [appolo-inject][22].
-enables you to organize your code in [loose coupling][23] classes.
+appolo have powerful [Dependency Injection][22] system based on [appolo-inject][23].
+enables you to organize your code in [loose coupling][24] classes.
 you can always access to injector via `appolo-inject`.
 ```javascript
 var appolo  = require('appolo');
@@ -721,16 +768,17 @@ The `appolo` library is released under the MIT license. So feel free to modify a
   [8]: https://github.com/shmoop207/appolo-express-boilerplate
   [9]: https://www.npmjs.org/package/consolidate
   [10]: http://expressjs.com/4x/api.html#router
-  [11]: http://expressjs.com/4x/api.html#req.params
-  [12]: http://expressjs.com/4x/api.html#res.status
-  [13]: https://github.com/Automattic/socket.io
-  [14]: https://github.com/mranney/node_redis
-  [15]: https://github.com/kriskowal/q
-  [16]: https://github.com/LearnBoost/mongoose
-  [17]: https://github.com/kriskowal/q
-  [18]: https://github.com/flatiron/winston
-  [19]: https://github.com/getsentry/sentry
-  [20]: https://github.com/shmoop207/appolo-class
-  [21]: http://en.wikipedia.org/wiki/Dependency_injection
-  [22]: https://github.com/shmoop207/appolo-inject
-  [23]: http://en.wikipedia.org/wiki/Loose_coupling
+  [11]: https://github.com/hapijs/joi
+  [12]: http://expressjs.com/4x/api.html#req.params
+  [13]: http://expressjs.com/4x/api.html#res.status
+  [14]: https://github.com/Automattic/socket.io
+  [15]: https://github.com/mranney/node_redis
+  [16]: https://github.com/kriskowal/q
+  [17]: https://github.com/LearnBoost/mongoose
+  [18]: https://github.com/kriskowal/q
+  [19]: https://github.com/flatiron/winston
+  [20]: https://github.com/getsentry/sentry
+  [21]: https://github.com/shmoop207/appolo-class
+  [22]: http://en.wikipedia.org/wiki/Dependency_injection
+  [23]: https://github.com/shmoop207/appolo-inject
+  [24]: http://en.wikipedia.org/wiki/Loose_coupling
