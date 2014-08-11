@@ -73,7 +73,7 @@ describe('Appolo Express', function () {
 
                     should.exist(res.body)
 
-                    res.body.errors.should.be.ok
+                    res.body.error.should.be.ok
 
 
                     done();
