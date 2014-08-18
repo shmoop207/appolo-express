@@ -98,6 +98,24 @@ describe('Appolo Express', function () {
                 });
         });
 
+        it('should call controller with modules ', function (done) {
+
+            chai.request('http://localhost:8183')
+                .get('/test/module/')
+                .res(function (res) {
+                    res.should.to.have.status(200);
+                    res.should.to.be.json;
+
+                    should.exist(res.body)
+
+                    res.body.logger.should.be.ok;
+
+                    res.body.logger.should.be.eq("testinglogger2");
+
+                    done();
+                });
+        });
+
     });
 
 

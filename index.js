@@ -13,6 +13,7 @@ module.exports = {
     environment : appolo.environment,
     express : require('express'),
     validator : require('joi'),
+    module : appolo.module,
     _ : appolo._
 }
 

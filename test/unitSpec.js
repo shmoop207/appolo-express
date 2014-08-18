@@ -6,11 +6,12 @@ var should = require('chai').should(),
 describe('Appolo Express Unit', function () {
 
     describe("basic test",function(){
-        beforeEach(function(){
+
+        beforeEach(function(done){
             appolo.launcher.launch({
                 paths: ['config', 'server'],
                 root: process.cwd() + '/test/mock'
-            });
+            },done);
 
 
         })
