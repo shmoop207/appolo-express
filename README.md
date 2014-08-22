@@ -16,10 +16,10 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * routes validation
   * Manage easily configurations and environments 
   * Simple folder structures
-  * Easy integrate third party services
+  * Easy integrate third party modules
   * Easy to get started
   
-##Live Demo ##
+##Live Demo
 #### Multi room chat 
  * build with `appolo-express` `socket.io` and `redis`.
  * live demo: [http://appolo-chat-example.herokuapp.com][4].
@@ -30,15 +30,15 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * live demo: [http://appolo-express-quotes-example.herokuapp.com][6]. 
   * source code: [https://github.com/shmoop207/appolo-express-quotes-example][7].
     
-## Installation ##
+## Installation
 ```javascript
 npm install appolo-express --save
 ```
 
-##Quick Start ##
+##Quick Start 
 in your app.js file
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 appolo.launcher.launch();
 ```
 
@@ -60,12 +60,14 @@ the environments folder must to exist every thing else is optional appolo will r
         |- production.js
     |- express
         |- express.js
-    |- loggers
-        |- logger.js
+    |- modules
+		|- logger.js	    
+	    |- redis.js 
+	    |- mongo.js
+        |- modules.js
     |- routes
         |- routes.js
-    |- redis
-        |- redis.js
+    
     ...
 |- public_folder
 |- server
@@ -132,19 +134,19 @@ app.use(flash());
 app.use(favicon());
 app.use(express.static);
 ```
-####options.startMessage####
+####options.startMessage
 Type :`string`, Default: 'Appolo Server listening on port: {port} version:{version} environment: {environment}'
 the message that will be written to console log the the server starts
-####options.startServer####
+####options.startServer
 Type :`bolean`, Default: 'true'
 if true the server will start immediately to listen to port else you will have to start in manually.
-####options.port####
+####options.port
 Type :`number`, Default: `process.env.PORT || this._options.port || appolo.environment.port || 8080)`
 the port that the app will listen to.
 the port will be determined in the following order if defined: `process.env.PORT`, `options.port`,`appolo.environment.port`, `8080`
-####usage example:####
+####usage example:
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 appolo.launcher.launch( {
     paths:['config', 'server'],
@@ -156,7 +158,7 @@ appolo.launcher.launch( {
 });
 ```
 
-##Environments##
+##Environments
 With environments you can define different set of configurations depending on the environment type your app is currently running.
 it is recommended to have 4 types of environments : `develpment`, `testing`, `staging`, `production`.
 after `appolo.launch` you can always to access to current environment vars via `appolo.environment`.
@@ -180,7 +182,7 @@ module.exports = {
 ```
 if we launch our app.js with `NODE_ENV = testing`
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 appolo.launcher.launch();
 var env = appolo.environment;
 
@@ -188,7 +190,7 @@ console.log(env.name,env.someVar,env.db) // 'testing someVar monog:://testing-ur
 
 ```
 
-##Express Configurations##
+##Express Configurations
 you can configure express app and add custom middlewares by adding configuration file to the express folder.
 the express configuration file is called after the default express configurations loaded if your want to load your own custom express configurations set `loadDefaultConfigurations : false` in the appolo launch
 ```javascript
@@ -203,7 +205,7 @@ module.exports = function (app) {
     app.use(favicon());
 }
 ```
-##Routes ##
+##Routes 
 you can easy define your app routes in the `config/routes` folder
 the routes are the same as you defined in [expressjs][10] router
 ```javascript
@@ -241,7 +243,7 @@ each route have the following params:
 you can also define the route in the controller `config`.<br>
 you can omit the controller name it will be set to the current controller id
 ```javascript
-var appolo = require('appolo')
+var appolo = require('appolo-express')
 module.exports = Controller.define({
     $config: {
         id: 'testController',
@@ -256,17 +258,17 @@ module.exports = Controller.define({
     }
 })
 ```
-##Routes Validation ##
+##Routes Validation 
 you can add validations to your routes the action controller will be called only if the route params are valid.<br>
-validations syntax is done by using [joi][11] module.<br>
+validations syntax is done by using [joi module][11] .<br>
 the validator takes request params from `req.param` , `req.qurey` and `req.body`, after validation the request params will be on `req.model`.
 
 ```javascript
-var appolo = require('appolo'),
+var appolo = require('appolo-express'),
     validator = appolo.validator;
 
 module.exports = Controller.define({
-    $config: {
+	$config: {
         id: 'testController',
         inject:['dataManager']
         routes: [{
@@ -281,11 +283,10 @@ module.exports = Controller.define({
         }]
     },
     search: function (req, res) {
-        var model = req.model;
-        
-        this.dataManager.getSearchResults(model.search,model.page,model.pageSize)
-            .then(this.jsonSuccess.bind(this))
-            .fail(this.serverError.bind(this));
+		var model = req.model;
+		this.dataManager.getSearchResults(model.search,model.page,model.pageSize)
+            .then(this.sendOk.bind(this))
+            .fail(this.sendServerError.bind(this));
     }
 })
 ```
@@ -295,7 +296,7 @@ if the request params are not valid `400 Bad Request` will be sent and json with
 {
     status: 400,
     statusText: "Bad Request",
-    errors: {
+    error: {
         symbol: [
             "symbol is required"
         ]
@@ -303,27 +304,34 @@ if the request params are not valid `400 Bad Request` will be sent and json with
 }
 ```
 
-##Controllers ##
+##Controllers
 Controllers are classes that handled the routes request.
+for every request an new controller will be created, it can not be singleton.
 in order the router will be able to handle to request the controller class must inherit from `appolo.Controller`
 each controller action will be called with [request][12] and [response][13] objects.
 
 ```javascript
-var appolo = require('appolo');
+var appolo = require('appolo-express');
 module.exports = appolo.Controller.define({
     $config:{
         id:'loginController',
-        inject:['dataManager']
+        inject:['authManager']
     },
 
     loginUser:function(req,res){
-        this.dataManager.validateUser(req.body.username,req.body.password)
-            .then(this.jsonSuccess.bind(this))
-            .fail(this.serverError.bind(this));
+        this.authManager.validateUser(req.body.username,req.body.password)
+            .then(this.sendOk.bind(this))
+            .fail(this.sendServerError.bind(this));
     }
 })
 ```
-`appolo.Controller` also has some helper functions.
+##`appolo.Controller` 
+
+
+ - `this.req` -  express request object
+ - `this.res` -  express response object
+ - `this.route` - the route object of the current action 
+
 ###`controller.render([view,model])`
 view render helper function will try to find and render the view  file in view folder according to the controller name and action
 
@@ -331,7 +339,7 @@ view render helper function will try to find and render the view  file in view f
  - `model` - the model that will be passed to the view
  
 ```javascript
-var appolo = require('appolo');
+var appolo = require('appolo-express');
 module.exports = appolo.Controller.define({
     $config:{
         id:'loginController',
@@ -339,58 +347,80 @@ module.exports = appolo.Controller.define({
     },
 
     index:function(req,res){
-        this.render({someData:'someData'}) //the will render the view from viewFolder/login/index
+        this.render({someData:'someData'}) 
+        //the will render the view from viewFolder/login/index
     }
 })
 ```
-###`controller.jsonSuccess([data])`
+### json succees helper methods
+
+ - `controller.send([statusCode,data])`
+ - `controller.sendOk([data])`
+ -  `controller.sendCreated([data])`
+ -  `controller.sendNoContent()`
+
 send json success response
 
  - `data` - the data object will be passed to the response
 
 ```javascript
-login:function(req,res){
-    this.jsonSuccess({userId:1})
-}
-```
-```javascript
-{
-    "success":true,
-    "data":{
-        "userId":1
+
+var appolo = require('appolo-express'),
+    validator = appolo.validator;
+
+module.exports = Controller.define({
+	$config: {
+	    id: 'loginController',
+        inject:['authManager']
+        routes: [{
+		    path: '/login/',
+            method: 'post',
+            action: 'loginUser',
+            validations:{
+		        username:validator.string().required(),
+		        password:validator.number().required()
+	        }
+        }]
+    },
+    loginUser: function (req, res) {
+        var model = req.model;
+
+        this.authManager.login(model.username,model.password)
+            .then(_prepareDto.bind(this))
+            .then(this.sendOk.bind(this))
+            .fail(this.sendServerError.bind(this));
+    },
+    _prepareDto:function(user){
+	    return {userId:user.id}
     }
-}
+})
+
 ```
-
-###`controller.jsonError([message])`
-send json error response with optinal message
-
- - `message` - the error message that will be passed to the response
-
 ```javascript
-login:function(req,res){
-    this.jsonError("something is wrong")
-}
+{"userId":1} //status code 200
 ```
+### json server error helper methods
+ - `controller.sendServerError([error,code])`
+ - `controller.sendBadRequest([error,code])`
+ -  `controller.sendUnauthorized([error,code])`
+ -  `controller.sendNotFound([error,code])`
+
+send json error response with optional message
+
+ - `error` - the error object that will be passed to the response
+ -  `code` - the error code object that will be passed to the response
+
+
 ```javascript
 {
-    "success":false,
-    "message":"something is wrong"
+     "status": 500,
+     "statusText": "Internal Server Error",
+     "error":"something is wrong",
+     "code":1001
 }
 ```
 
-###`controller.serverError([message])`
-send response server error 500 with optinal message
-
- - `message` - the error message that will be passed to the response
-
-```javascript
-login:function(req,res){
-    this.serverError("something is wrong")
-}
-```
-
-##Middlewares ##
+##Middlewares 
 middlewrae class will run before the action of the controller is invoked.
 you must and declare the middleware `id` in the route and call `next` function in order to continue the request.
 the middleware call must impelmet the run method and inherit from `appolo.Middleware`
@@ -408,7 +438,7 @@ module.exports = [
 ```
 in middleware file
 ```javascript
-var appolo = require('appolo');
+var appolo = require('appolo-express');
 module.exports = appolo.Middleware.define({
     $config:{
         id:'authMiddleware',
@@ -430,24 +460,144 @@ module.exports = appolo.Middleware.define({
 })
 ```
 
-##Socket.io, Redis, MongoDB and More Support
-you can easily integrate to popular services like socket.io redis and mongoDB in appolo.
-all you have to do is to add the service configratio file to the config folder
+##Modules
+third party modules can be easily loaded to appolo inject and used in the inject class system.<br>
+each module must call `appolo.use` before it can be used by `appolo launcher`<br>
+the modules loaded in series so the module must call the `next` function in order to continue the lunch process.<br>.
+you can inject the `appolo.use` function any object that is already exists in the injector 
 
-####[Sokcet.io][14] example####
+the default object:
+
+ - `env` - environment object,
+ - `inject` - injector to add objects to the ioc,
+ - `app` - express app
+ - `router` - router to change to current routes configuration
+
+the last argument must the `next` function 
+
+```javascript
+var appolo = require('appolo-express');
+
+//my custom module 
+appolo.use(function(env,inject,next){
+	var myModuleObject = {data:'test'};	
+	
+	inject.addObject('myModuleObject',myModuleObject);
+	
+	next();
+}); 
+	
+```
+now I can inject `myModuleObject` to any class
+```javascript
+var appolo = require('appolo-express');
+appolo.Class.define({
+	$config:{
+        id:'authMiddleware',
+        inject:['myModuleObject']
+    },
+    doSomeThing: function () {
+        return this.myModuleObject.data;
+    }
+});
+```
+
+###Logger module
+logger module example with [winston][19] and [sentry][20]
+
+loggerModule.js file
+```javascript
+var winston = require('winston'),
+    appolo = require('appolo-express'),
+    Sentry = require('winston-sentry');
+
+module.exports = function(options){
+	return function(env,inject,next){
+		var transports = [];
+	
+		if(env.type == 'produnction'){
+		    transports.push(new Sentry({
+	            level: 'warn',
+	            dsn: env.sentyConnectionString,
+	            json: true,
+	            timestamp: true,
+	            handleExceptions: true,
+	            patchGlobal: true
+		    }));
+		}
+
+		transports.push(new (winston.transports.Console)({
+		    json: false,
+		    timestamp: true,
+		    handleExceptions: true
+		}));
+
+		var logger = new (winston.Logger)({
+		    transports: transports,
+		    exitOnError: false
+		});
+
+		inject.addObject('logger', logger);
+	}
+}
+```
+in your modules.js
+```javascript
+var logger= require('./loggerModule'),
+    appolo = require('appolo-express');
+
+appolo.use(loggerModule());	
+```
+now you you inject logger anywhere you want
+```javascript
+var appolo  = require('appolo');
+
+appolo.Class.define({
+    $config:{
+        id:'dataManager',
+        singleton: true,
+        initMethod: 'initialize',
+        inject:['logger']
+    },
+    initialize:function(){
+        this.logger.info("dataManager initialized",{someData:'someData'})
+    }
+});
+
+```
+
+###Socket.io Module
+[Sokcet.io][14] module example
+
+socketModule.js file
 ```javascript
 var sio = require('socket.io'),
     appolo = require('appolo-express');
 
-var app  = appolo.inject.getObject('app');
-var io = sio.listen(app.server);
-
-appolo.inject.addObject('io', io);
-module.exports = io;
+module.exports = function(options){
+	return function(env,inject,app,next){
+		
+		var io = sio.listen(app.server);
+		
+		inject.addObject('io', io);
+		
+		next();
+	}
+}
 ```
-
+in your modules.js
 ```javascript
-var appolo  = require('appolo'),
+var loggerModule= require('./loggerModule'),
+	socketModule= require('./socketModule'),
+    appolo = require('appolo-express');
+
+appolo.use(loggerModule());
+appolo.use(socketModule());	
+```
+usage:
+```javascript
+
+var appolo  = require('appolo-express'),
     Q = require('q');
 
 appolo.Class.define({
@@ -455,36 +605,55 @@ appolo.Class.define({
         id:'chatController',
         singleton: true,
         initMethod: 'initialize',
-        inject:['io']
+        inject:['io','logger']
     },
     initialize:function(){
          
         this.io.sockets.on('connection', function(socket){
+	        this.logger.info("client connected")
             socket.broadcast.to('some_room').emit('message','client connected');
-        });
+        }.bind(this);
     }
 });
-
 ```
 
-####[Redis][15] and [Q][16] example####
+###Redis Module
+[Redis][15] module and [Q][16] example
+
+redisModule.js file
 ```javascript
 var redis = require('redis'),
     appolo = require('appolo-express'),
     url = require('url');
 
-//you can put redis connection string in appolo environments to support 
-//different redis db in different environments
-var redisURL = url.parse(appolo.environment.redisConnectionString);
-var redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-if(redisURL.auth){
-    redisClient.auth(redisURL.auth.split(":")[1]);
+module.exports = function(options){
+	return function(env,inject,logger,next){
+		//you can put redis connection string in appolo environments to support 
+		//different redis db in different environments
+		var redisURL = url.parse(appolo.environment.redisConnectionString);
+		var redisClient = redis.createClient(redisURL.port, redisURL.hostname);
+		if(redisURL.auth){
+		    redisClient.auth(redisURL.auth.split(":")[1]);
+		}
+		redisClient .on('connect', function () {
+	        logger.info("connected to redisclient");
+	        next();
+		});
+		
+		inject.addObject('redis', redisClient);
+	}
 }
-
-appolo.inject.addObject('redis', redisClient);
-module.exports = redisClient;
 ```
+in your modules.js
+```javascript
+var loggerModule= require('./loggerModule'),
+	redisModule= require('./redisModule'),
+    appolo = require('appolo-express');
 
+appolo.use(loggerModule());
+appolo.use(redisModule());	
+```
+usage:
 ```javascript
 var appolo  = require('appolo'),
     Q = require('q');
@@ -507,22 +676,50 @@ appolo.Class.define({
 });
 
 ```
+###MongoDb Module
+MongoDb with [Mongose][17] and [Q][18] example
 
-####MongoDb with [Mongose][17] and [Q][18] example####
+in mongooseModule.js
 ```javascript
 var mongoose = require('mongoose'),,
     appolo = require('appolo-express');
 
-mongoose.connect(appolo.environment.db);
+module.exports = function(options){
+	return function(env,inject,logger,next){
+		mongoose.connect(appolo.environment.db);
+		
+		mongoose.on('connection',function(){
+			logger.info("connected to mongo");
+			next()
+		});
+		
+		inject.addObject('mongoose', mongoose);
+	}
+}
+```
+in modules.js
+```javascript
+var loggerModule= require('./loggerModule'),
+	mongooseModule= require('./mongooseModule'),
+    appolo = require('appolo-express');
 
-var userSchema = new mongoose.Schema( name : {type: String});
-var userModel = mongoose.model('User', userSchema);
-
-appolo.inject.addObject('db', mongoose);
-appolo.inject.addObject('UserModel', userModel);
-module.exports = db;
+appolo.use(loggerModule());
+appolo.use(mongooseModule());	
 ```
 
+in userSchema.js 
+```javascript
+	var mongoose = require('mongoose'),
+	    appolo = require('appolo-express');
+	
+	var userSchema = new mongoose.Schema( name : {type: String});
+	var userModel = mongoose.model('User', userSchema);
+	
+	appolo.inject.addObject('UserModel', userModel);
+	
+	module.exports = userSchema ;
+```
+usage:
 ```javascript
 var appolo  = require('appolo'),
     Q = require('q');
@@ -546,58 +743,7 @@ appolo.Class.define({
 
 ```
 
-##Loggers ##
-you can easy add logger to your server just by adding the logger configuraion file to the config folder.
-####logger with [winston][19] and [sentry][20]####
-```javascript
-var winston = require('winston'),
-    appolo = require('appolo-express'),
-    Sentry = require('winston-sentry');
 
-var transports = [];
-
-if(appolo.environment.type == 'produnction'){
-    transports.push(new Sentry({
-            level: 'warn',
-            dsn: "senty connection string",
-            json: true,
-            timestamp: true,
-            handleExceptions: true,
-            patchGlobal: true
-    }));
-}
-
-transports.push(new (winston.transports.Console)({
-    json: false,
-    timestamp: true,
-    handleExceptions: true
-}));
-
-var logger = new (winston.Logger)({
-    transports: transports,
-    exitOnError: false
-});
-
-appolo.inject.addObject('logger', logger);
-module.exports = logger;
-```
-
-```javascript
-var appolo  = require('appolo');
-
-appolo.Class.define({
-    $config:{
-        id:'dataManager',
-        singleton: true,
-        initMethod: 'initialize',
-        inject:['logger']
-    },
-    initialize:function(){
-        this.logger.info("dataManager initialized",{someData:'someData'})
-    }
-});
-
-```
 
 
 
@@ -628,7 +774,7 @@ console.log(square.area()) // 36
 ```
 
 ##Dependency Injection System ##
-appolo have powerful [Dependency Injection][22] system based on [appolo-inject][23].
+appolo has powerful [Dependency Injection][22] system based on [appolo-inject][23].
 enables you to organize your code in [loose coupling][24] classes.
 you can always access to injector via `appolo-inject`.
 ```javascript
@@ -725,7 +871,8 @@ appolo.Class.define({
 
 ##Appolo Bootstrap ##
 
-once it lanched appolo try to find appolo `bootstrap` class and call it's `run` mehtod.
+once it launched appolo try to find appolo `bootstrap` class and call it's `run` method.
+you must call the callback function in order to finish the launch process.
 ```javascript
 var appolo  = require('appolo');
 
@@ -735,9 +882,11 @@ appolo.Class.define({
         singleton: true,
         inject:['someManager1','someManager2']
     },
-    run:function(){
+    run:function(callback){
         //start your application logic here
         this.someManager1.doSomeThing();
+		
+		callback();
     }
     ...
 });
