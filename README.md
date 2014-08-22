@@ -463,7 +463,7 @@ module.exports = appolo.Middleware.define({
 ##Modules
 third party modules can be easily loaded to appolo inject and used in the inject class system.<br>
 each module must call `appolo.use` before it can be used by `appolo launcher`<br>
-the modules loaded in series so the module must call the `next` function in order to continue the lunch process.<br>.
+the modules loaded in series so the module must call the `next` function in order to continue the lunch process.
 you can inject the `appolo.use` function any object that is already exists in the injector 
 
 the default object:
