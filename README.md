@@ -460,6 +460,129 @@ module.exports = appolo.Middleware.define({
 })
 ```
 
+
+##Class System 
+appolo have powerful class system based on [appolo-class][21].
+enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
+```javascript
+var appolo  = require('appolo-express');
+
+var Rectangle = appolo.Class.define({
+    constructor: function (width, height) {
+        this.height = height;
+        this.width = width;
+    },
+    area: function () {
+        return this.width * this.height;
+    }
+});
+
+var Square = Rectangle.define({
+    constructor: function (side) {
+        this.callParent(side, side);
+    }
+});
+
+var square = new Square(6);
+console.log(square.area()) // 36
+```
+
+##Dependency Injection System
+appolo has powerful [Dependency Injection][22] system based on [appolo-inject][23].
+enables you to organize your code in [loose coupling][24] classes.
+you can always access to injector via `appolo-inject`.
+```javascript
+var appolo  = require('appolo-express');
+
+appolo.Class.define({
+    $config:{
+        id:'dataManager',
+        singleton: true
+    },
+    getData:function(){
+        ...
+    }
+});
+
+appolo.Class.define({
+    $config:{
+        id:'fooController',
+        singleton: false,
+        initMethod:'initialize',
+        inject:['dataManager']
+    },
+    constructor: function () {
+        this.data = null
+    },
+    
+    initialize:fucntion(){
+        this.data =  this.dataManager.getData();
+        //do something
+    }
+    ...
+});
+
+var fooController = appolo.inject.getObject('fooController');
+console.log(fooController.data)
+```
+
+##Event Dispatcher
+appolo have built in event dispatcher to enable classes to listen and fire events
+Event Dispatcher has the following methods:
+
+###`eventDispatcher.on(event,callback,[scope])`
+add event listener
+
+ - `event` - event name.
+ - `callback` - callback function that will triggered on event name.
+ - `scope` - optinal, the scope of the `callback` function default: `this`.
+
+###`eventDispatcher.un(event,callback,[scope])`     
+remove event listener all the arguments must be `===` to on method else it won`t be removed.
+
+ -  `event` - event name.
+ -  `callback` - callback function.
+ -  `scope` - optinal, the scope of the callback function.
+ 
+###`eventDispatcher.fireEvent(event,[arguments])`
+fireEvent - triggers the callback functions on given event name
+
+- `eventName` - event name
+- `arguments` -  all the rest `arguments` will be applied on the `callback` function
+
+```javascript
+var appolo  = require('appolo-express');
+
+appolo.EventDispatcher.define({
+    $config:{
+        id:'fooManager',
+        singleton: true
+    },
+    notifyUsers:function(){
+    
+        this.fireEvent('someEventName',{someData:'someData'})
+    }
+    ...
+});
+
+appolo.Class.define({
+    $config:{
+        id:'fooController',
+        initMethod:'initialize',
+        inject:['fooManager']
+    },
+    initialize:function(){
+        this.fooManager.on('someEventName',function(data){
+            this.doSomething(data.someData)
+        },this);
+    },
+    doSomething:function(){
+    }
+    ...
+});
+
+```
+
 ##Modules
 third party modules can be easily loaded to appolo inject and used in the inject class system.<br>
 each module must call `appolo.use` before it can be used by `appolo launcher`<br>
@@ -745,127 +868,6 @@ appolo.Class.define({
 
 
 
-##Class System 
-appolo have powerful class system based on [appolo-class][21].
-enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
-```javascript
-var appolo  = require('appolo-express');
-
-var Rectangle = appolo.Class.define({
-    constructor: function (width, height) {
-        this.height = height;
-        this.width = width;
-    },
-    area: function () {
-        return this.width * this.height;
-    }
-});
-
-var Square = Rectangle.define({
-    constructor: function (side) {
-        this.callParent(side, side);
-    }
-});
-
-var square = new Square(6);
-console.log(square.area()) // 36
-```
-
-##Dependency Injection System
-appolo has powerful [Dependency Injection][22] system based on [appolo-inject][23].
-enables you to organize your code in [loose coupling][24] classes.
-you can always access to injector via `appolo-inject`.
-```javascript
-var appolo  = require('appolo-express');
-
-appolo.Class.define({
-    $config:{
-        id:'dataManager',
-        singleton: true
-    },
-    getData:function(){
-        ...
-    }
-});
-
-appolo.Class.define({
-    $config:{
-        id:'fooController',
-        singleton: false,
-        initMethod:'initialize',
-        inject:['dataManager']
-    },
-    constructor: function () {
-        this.data = null
-    },
-    
-    initialize:fucntion(){
-        this.data =  this.dataManager.getData();
-        //do something
-    }
-    ...
-});
-
-var fooController = appolo.inject.getObject('fooController');
-console.log(fooController.data)
-```
-
-##Event Dispatcher
-appolo have built in event dispatcher to enable classes to listen and fire events
-Event Dispatcher has the following methods:
-
-###`eventDispatcher.on(event,callback,[scope])`
-add event listener
-
- - `event` - event name.
- - `callback` - callback function that will triggered on event name.
- - `scope` - optinal, the scope of the `callback` function default: `this`.
-
-###`eventDispatcher.un(event,callback,[scope])`     
-remove event listener all the arguments must be `===` to on method else it won`t be removed.
-
- -  `event` - event name.
- -  `callback` - callback function.
- -  `scope` - optinal, the scope of the callback function.
- 
-###`eventDispatcher.fireEvent(event,[arguments])`
-fireEvent - triggers the callback functions on given event name
-
-- `eventName` - event name
-- `arguments` -  all the rest `arguments` will be applied on the `callback` function
-
-```javascript
-var appolo  = require('appolo-express');
-
-appolo.EventDispatcher.define({
-    $config:{
-        id:'fooManager',
-        singleton: true
-    },
-    notifyUsers:function(){
-    
-        this.fireEvent('someEventName',{someData:'someData'})
-    }
-    ...
-});
-
-appolo.Class.define({
-    $config:{
-        id:'fooController',
-        initMethod:'initialize',
-        inject:['fooManager']
-    },
-    initialize:function(){
-        this.fooManager.on('someEventName',function(data){
-            this.doSomething(data.someData)
-        },this);
-    },
-    doSomething:function(){
-    }
-    ...
-});
-
-```
 
 ##Appolo Bootstrap ##
 
