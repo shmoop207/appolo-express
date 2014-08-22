@@ -466,7 +466,7 @@ each module must call `appolo.use` before it can be used by `appolo launcher`<br
 the modules loaded in series so the module must call the `next` function in order to continue the lunch process.
 you can inject the `appolo.use` function any object that is already exists in the injector 
 
-the default object:
+the default injectable objects:
 
  - `env` - environment object,
  - `inject` - injector to add objects to the ioc,
