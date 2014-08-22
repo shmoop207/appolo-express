@@ -473,7 +473,7 @@ the default injectable objects:
  - `app` - express app
  - `router` - router to change to current routes configuration
 
-the last argument must the `next` function 
+the last argument must be the `next` function 
 
 ```javascript
 var appolo = require('appolo-express');
