@@ -468,10 +468,10 @@ you can inject the `appolo.use` function any object that is already exists in th
 
 the default injectable objects:
 
- - `env` - environment object,
- - `inject` - injector to add objects to the ioc,
- - `app` - express app
- - `router` - router to change to current routes configuration
+ - `env` - environment object.
+ - `inject` - injector, to add objects to the injector.
+ - `app` - express app.
+ - `router` - router, to change to current routes configuration.
 
 the last argument must be the `next` function 
 
@@ -550,7 +550,7 @@ appolo.use(loggerModule());
 ```
 now you you inject logger anywhere you want
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 appolo.Class.define({
     $config:{
@@ -655,7 +655,7 @@ appolo.use(redisModule());
 ```
 usage:
 ```javascript
-var appolo  = require('appolo'),
+var appolo  = require('appolo-express'),
     Q = require('q');
 
 appolo.Class.define({
@@ -721,7 +721,7 @@ in userSchema.js
 ```
 usage:
 ```javascript
-var appolo  = require('appolo'),
+var appolo  = require('appolo-express'),
     Q = require('q');
 
 appolo.Class.define({
@@ -745,13 +745,11 @@ appolo.Class.define({
 
 
 
-
-
-##Class System ##
+##Class System 
 appolo have powerful class system based on [appolo-class][21].
 enables you write your server code classes in elegant way with `inheritance` and `mixins` for better code reuse.
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 var Rectangle = appolo.Class.define({
     constructor: function (width, height) {
@@ -773,12 +771,12 @@ var square = new Square(6);
 console.log(square.area()) // 36
 ```
 
-##Dependency Injection System ##
+##Dependency Injection System
 appolo has powerful [Dependency Injection][22] system based on [appolo-inject][23].
 enables you to organize your code in [loose coupling][24] classes.
 you can always access to injector via `appolo-inject`.
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 appolo.Class.define({
     $config:{
@@ -812,7 +810,7 @@ var fooController = appolo.inject.getObject('fooController');
 console.log(fooController.data)
 ```
 
-##Event Dispatcher ##
+##Event Dispatcher
 appolo have built in event dispatcher to enable classes to listen and fire events
 Event Dispatcher has the following methods:
 
@@ -837,7 +835,7 @@ fireEvent - triggers the callback functions on given event name
 - `arguments` -  all the rest `arguments` will be applied on the `callback` function
 
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 appolo.EventDispatcher.define({
     $config:{
@@ -874,7 +872,7 @@ appolo.Class.define({
 once it launched appolo try to find appolo `bootstrap` class and call it's `run` method.
 you must call the callback function in order to finish the launch process.
 ```javascript
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
 appolo.Class.define({
     $config:{
