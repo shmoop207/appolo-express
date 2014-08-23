@@ -572,13 +572,12 @@ appolo.Class.define({
         inject:['fooManager']
     },
     initialize:function(){
-        this.fooManager.on('someEventName',function(data){
-            this.doSomething(data.someData)
-        },this);
+        this.fooManager.on('someEventName',this.doSomething.bind(this));
     },
-    doSomething:function(){
+    doSomething:function(data){
+	    ...
     }
-    ...
+    
 });
 
 ```
