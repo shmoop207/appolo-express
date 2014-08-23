@@ -810,8 +810,6 @@ var mongoose = require('mongoose'),
 module.exports = function(options){
 	return function(env,inject,logger,next){
 		mongoose.connect(appolo.environment.db);
-		
-		 mongoose.connect(appolo.environment.db);
 
         mongoose.connection.on('error', function (e) {
             logger.error('connection error',{error:e});
