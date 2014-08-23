@@ -805,7 +805,7 @@ MongoDb with [Mongose][17] and [Q][18] example
 
 in mongooseModule.js
 ```javascript
-var mongoose = require('mongoose'),,
+var mongoose = require('mongoose'),
     appolo = require('appolo-express');
 
 module.exports = function(options){
@@ -833,15 +833,15 @@ appolo.use(mongooseModule());
 
 in userSchema.js 
 ```javascript
-	var mongoose = require('mongoose'),
-	    appolo = require('appolo-express');
+var mongoose = require('mongoose'),
+	appolo = require('appolo-express');
 	
-	var userSchema = new mongoose.Schema( name : {type: String});
-	var userModel = mongoose.model('User', userSchema);
+var userSchema = new mongoose.Schema( name : {type: String});
+var userModel = mongoose.model('User', userSchema);
 	
-	appolo.inject.addObject('UserModel', userModel);
+appolo.inject.addObject('UserModel', userModel);
 	
-	module.exports = userSchema ;
+module.exports = userSchema ;
 ```
 usage:
 ```javascript
