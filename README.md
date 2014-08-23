@@ -661,6 +661,7 @@ module.exports = function(options){
 		});
 
 		inject.addObject('logger', logger);
+		next();
 	}
 }
 ```
