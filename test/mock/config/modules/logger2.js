@@ -20,6 +20,6 @@ function testModule(options) {
 }
 
 
-appolo.module.register(testModule({test:'test'}))
+appolo.use(testModule({test:'test'}))
 
 
