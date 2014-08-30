@@ -29,6 +29,11 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * build with `appolo-express` `socket.io` and `angularjs`.
   * live demo: [http://appolo-express-quotes-example.herokuapp.com][6]. 
   * source code: [https://github.com/shmoop207/appolo-express-quotes-example][7].
+
+#### Polls
+  * build with `appolo-express` `mongoDB` and `angularjs`.
+  * live demo: [http://appolo-express-poll-example.herokuapp.com](http://appolo-express-poll-example.herokuapp.com/). 
+  * source code: [https://github.com/shmoop207/appolo-express-polls-example](https://github.com/shmoop207/appolo-express-polls-example).
     
 ## Installation
 ```javascript
