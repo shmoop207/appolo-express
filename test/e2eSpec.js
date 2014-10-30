@@ -1,6 +1,8 @@
 var should = require('chai').should(),
     chai = require('chai'),
-    chaiHttp = require('chai-http');
+    request = require('supertest'),
+    appolo = require('../index')
+chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
@@ -9,27 +11,42 @@ describe('Appolo Express', function () {
 
     describe('e2e', function () {
 
+        beforeEach(function (done) {
+            appolo.launcher.launch({
+                port: 8183,
+                environment: "testing",
+                root: process.cwd() + '/test/mock/',
+                paths: ['config', 'server']
+            }, done);
+        });
+
+        afterEach(function () {
+            appolo.launcher.reset();
+        });
+
+
         it('should should call route and get json', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/')
-                .res(function (res) {
+                .expect(function (res) {
+
                     res.should.to.have.status(200);
                     res.should.to.be.json;
 
-                    should.exist(res.body)
+                    should.exist(res.body);
 
                     res.body.working.should.be.ok
+                })
+                .end(done)
 
-                    done();
-                });
         });
 
         it('should should call route from controller', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/route/?user_name=11')
-                .res(function (res) {
+                .expect(function (res) {
                     res.should.to.have.status(200);
                     res.should.to.be.json;
 
@@ -39,17 +56,18 @@ describe('Appolo Express', function () {
 
                     res.body.controllerName.should.be.eq('testRouteController')
 
-                    res.body.model.userName.should.ok
-
-                    done();
-                });
+                    res.body.model.userName.should.ok;
+                })
+                .end(done);
         });
 
         it('should  call middleware before controller', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/middleware/')
-                .res(function (res) {
+                .expect(function (res) {
+
+
                     res.should.to.have.status(200);
                     res.should.to.be.json;
 
@@ -59,50 +77,47 @@ describe('Appolo Express', function () {
 
                     res.body.middleware.should.be.ok
 
-                    done();
-                });
+
+                }).end(done);
         });
 
         it('should call validations error', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/validations/')
-                .res(function (res) {
+                .expect(function (res) {
                     res.should.to.have.status(400);
                     res.should.to.be.json;
 
                     should.exist(res.body)
 
-                    res.body.error.should.be.ok
+                    res.body.error.should.be.ok;
 
-
-                    done();
-                });
+                })
+                .end(done);
         });
 
 
         it('should call validations ', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/validations/?username=aaa&password=1111')
-                .res(function (res) {
+                .expect(function (res) {
                     res.should.to.have.status(200);
                     res.should.to.be.json;
 
                     should.exist(res.body)
 
                     res.body.username.should.be.ok;
-
-
-                    done();
-                });
+                })
+                .end(done);
         });
 
         it('should call controller with modules ', function (done) {
 
-            chai.request('http://localhost:8183')
+            request(appolo.launcher.app)
                 .get('/test/module/')
-                .res(function (res) {
+                .expect(function (res) {
                     res.should.to.have.status(200);
                     res.should.to.be.json;
 
@@ -112,8 +127,7 @@ describe('Appolo Express', function () {
 
                     res.body.logger.should.be.eq("testinglogger2");
 
-                    done();
-                });
+                }).end(done);
         });
 
     });

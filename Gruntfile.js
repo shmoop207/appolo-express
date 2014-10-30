@@ -18,23 +18,23 @@ module.exports = function (grunt) {
                 src: ['test/unitSpec.js']
             }
         },
-        express: {
-            test: {
-                options: {
-                    script: 'test/mock/app.js',
-                    port: 8183,
-                    //delay: 1000,
-                    output: ".*listening.*",
-                    node_env: 'testing'
-                }
-            }
-        }
+        //express: {
+        //    test: {
+        //        options: {
+        //            script: 'test/mock/app.js',
+        //            port: 8183,
+        //            //delay: 1000,
+        //            output: ".*listening.*",
+        //            node_env: 'testing'
+        //        }
+        //    }
+        //}
     });
 
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-express-server');
 
-    grunt.registerTask('test', ['mochaTest:unit','express:test','mochaTest:e2e']);
+    grunt.registerTask('test', ['mochaTest:unit','mochaTest:e2e']);
 
     grunt.registerTask('default', 'test');
 
