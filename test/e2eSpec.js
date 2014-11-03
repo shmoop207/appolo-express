@@ -115,6 +115,9 @@ describe('Appolo Express', function () {
 
         it('should call controller with modules ', function (done) {
 
+
+
+
             request(appolo.launcher.app)
                 .get('/test/module/')
                 .expect(function (res) {
