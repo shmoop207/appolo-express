@@ -9,13 +9,13 @@ module.exports = function (grunt) {
                 options: {
                     reporter: 'spec'
                 },
-                src: ['test/e2eSpec.js']
+                src: ['test/spec/e2eSpec.js']
             },
             unit: {
                 options: {
                     reporter: 'spec'
                 },
-                src: ['test/unitSpec.js']
+                src: ['test/spec/unitSpec.js']
             }
         },
         //express: {

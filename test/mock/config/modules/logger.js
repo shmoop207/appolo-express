@@ -1,7 +1,7 @@
 var appolo = require('../../../../index');
 
 
-appolo.module.register(function (env,inject,callback) {
+module.exports = function (env,inject,callback) {
 
     var logger =  {
         getName:function(){
@@ -13,4 +13,4 @@ appolo.module.register(function (env,inject,callback) {
 
     callback();
 
-})
+}

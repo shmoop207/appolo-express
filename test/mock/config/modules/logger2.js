@@ -2,7 +2,7 @@ var appolo = require('../../../../index');
 
 
 
-function testModule(options) {
+module.exports = function(options) {
     return  function (env, inject, logger, callback) {
 
         var logger = {
@@ -19,7 +19,5 @@ function testModule(options) {
     }
 }
 
-
-appolo.use(testModule({test:'test'}))
 
 

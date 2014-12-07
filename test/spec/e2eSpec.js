@@ -1,7 +1,7 @@
 var should = require('chai').should(),
     chai = require('chai'),
     request = require('supertest'),
-    appolo = require('../index')
+    appolo = require('../../index')
 chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);

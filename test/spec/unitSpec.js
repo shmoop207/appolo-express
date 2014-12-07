@@ -1,6 +1,6 @@
 var should = require('chai').should(),
     chai = require('chai'),
-    appolo = require('../index')
+    appolo = require('../../index')
 
 
 describe('Appolo Express Unit', function () {
