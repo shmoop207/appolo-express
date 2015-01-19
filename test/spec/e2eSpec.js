@@ -21,7 +21,7 @@ describe('Appolo Express', function () {
         });
 
         afterEach(function () {
-            appolo.launcher.reset();
+            appolo.launcher.softReset();
         });
 
 
