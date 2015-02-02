@@ -520,7 +520,7 @@ appolo.Class.define({
         this.data = null
     },
     
-    initialize:fucntion(){
+    initialize:function(){
         this.data =  this.dataManager.getData();
         //do something
     }
