@@ -6,7 +6,9 @@ module.exports = appolo.EventDispatcher.define({
         singleton:true,
         inject:['manager']
     },
-    run:function(){
+    run:function(callback){
         this.working = true;
+
+        callback()
     }
 })

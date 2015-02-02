@@ -133,6 +133,28 @@ describe('Appolo Express', function () {
                 }).end(done);
         });
 
+        it('should not call route with env if not in environments', function (done) {
+
+            request(appolo.launcher.app)
+                .get('/test/route/not_in_env/')
+                .expect(function (res) {
+                    res.should.to.have.status(404);
+
+                }).end(done);
+        });
+
+
+
+        it('should call route with env', function (done) {
+
+            request(appolo.launcher.app)
+                .get('/test/route/env/')
+                .expect(function (res) {
+                    res.should.to.have.status(200);
+
+                }).end(done);
+        });
+
     });
 
 

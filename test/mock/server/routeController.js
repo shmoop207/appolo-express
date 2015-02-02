@@ -15,6 +15,7 @@ module.exports = Controller.define({
                 method: 'get',
                 action: 'test'
             }
+
         ]
     },
 
