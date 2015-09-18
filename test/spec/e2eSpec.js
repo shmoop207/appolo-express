@@ -143,6 +143,16 @@ describe('Appolo Express', function () {
                 }).end(done);
         });
 
+        it('Should return valid xml in xml controller', function(done){
+           request(appolo.launcher.app)
+               .get('/xml/test/')
+               .expect(function(res){
+                   res.should.have.status(200);
+                   res.headers['content-type'].should.be.equal('text/xml; charset=utf-8');
+                   res.text.should.be.equal("<test>testXml</test>")
+               }).end(done)
+        });
+
 
 
         it('should call route with env', function (done) {

@@ -10,6 +10,9 @@ module.exports = Controller.define({
     },
     validaion:function(req,res){
         res.json(req.model)
+    },
+    testXml: function(req, res){
+        this.sendXml("<test>testXml</test>")
     }
 
 })
