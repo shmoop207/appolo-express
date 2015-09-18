@@ -24,5 +24,12 @@ module.exports = [
             username: Joi.string().alphanum().min(3).max(30).required(),
             password: Joi.string().alphanum().min(3).max(30).required()
         }
+    },
+    {
+        path: '/xml/test/',
+        method: 'get',
+        controller: 'test',
+        action: 'testXml'
+
     }
 ];
