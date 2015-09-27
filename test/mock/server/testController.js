@@ -1,15 +1,21 @@
-var Controller = require('../../../lib/controller/controller');
-module.exports = Controller.define({
-    $config:{
-        id:'testController',
-        inject:['manager']
-    },
+"use strict";
+var appolo = require('../../../index');
 
-    test:function(req,res){
-        res.json({working:true})
-    },
-    validaion:function(req,res){
+let $config = {
+    id: 'testController',
+    inject: ['manager']
+};
+class Controller extends appolo.Controller {
+
+
+    test(req, res) {
+        res.json({working: true})
+    }
+
+    validaion(req, res) {
         res.json(req.model)
     }
 
-})
+}
+
+module.exports = appolo.define($config, Controller);

@@ -1,12 +1,17 @@
-var Middleware = require('../../../lib/middleware/middleware');
-module.exports = Middleware.define({
-    $config:{
-        id:'testMiddleware',
-        inject:['manager']
-    },
+"use strict";
+var appolo = require('../../../index');
 
-    run:function(req,res,next){
-        res.send({working:true,middleware:true})
+let $config = {
+    id: 'testMiddleware',
+    inject: ['manager']
+};
+
+class Middleware extends appolo.Middleware {
+
+    run(req, res, next) {
+        res.send({working: true, middleware: true})
     }
+}
 
-})
+
+module.exports = appolo.define($config,Middleware)

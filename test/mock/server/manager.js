@@ -1,8 +1,14 @@
-var appolo = require('appolo');
+"use strict";
+var appolo = require('../../../index');
 
-module.exports = appolo.EventDispatcher.define({
-    $config:{
-        id:'manager',
-        singleton:true
-    }
-})
+
+let $config = {
+    id: 'manager',
+    singleton: true
+};
+
+class Manager {
+
+}
+
+module.exports = appolo.define($config, Manager);

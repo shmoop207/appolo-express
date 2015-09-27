@@ -1,27 +1,31 @@
-var Controller = require('../../../lib/controller/controller');
-var validator = require('joi');
-module.exports = Controller.define({
-    $config: {
-        id: 'routeEnvController',
-        routes: [
-            {
-                path: '/test/route/not_in_env/',
-                method: 'get',
-                action: 'test',
-                environments:['test']
-            },
+"use strict";
+var appolo = require('../../../index');
 
-            {
-                path: '/test/route/env/',
-                method: 'get',
-                action: 'test',
-                environments:['testing']
-            }
-        ]
-    },
+let $config = {
+    id: 'routeEnvController',
+    routes: [
+        {
+            path: '/test/route/not_in_env/',
+            method: 'get',
+            action: 'test',
+            environments: ['test']
+        },
 
-    test: function (req, res) {
+        {
+            path: '/test/route/env/',
+            method: 'get',
+            action: 'test',
+            environments: ['testing']
+        }
+    ]
+};
+
+class Controller extends appolo.Controller {
+
+    test(req, res) {
         res.json({working: true, controllerName: this.route.controller})
     }
 
-})
+}
+
+module.exports = appolo.define($config, Controller)

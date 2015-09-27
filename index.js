@@ -3,7 +3,7 @@ var appolo = require('appolo'),
     launcher = require('./lib/launcher/launcher');
 
 module.exports = {
-    Class : appolo.Class,
+    define : appolo.define,
     Controller : require('./lib/controller/controller'),
     Middleware : require('./lib/middleware/middleware'),
     EventDispatcher :appolo.EventDispatcher,

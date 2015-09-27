@@ -1,14 +1,20 @@
-var appolo = require('appolo');
+"use strict";
+var appolo = require('../../../index');
 
-module.exports = appolo.EventDispatcher.define({
-    $config:{
-        id:'appolo-bootstrap',
-        singleton:true,
-        inject:['manager']
-    },
-    run:function(callback){
+let $config = {
+    id: 'appolo-bootstrap',
+    singleton: true,
+    inject: ['manager']
+}
+
+class Bootstrap {
+
+    run (callback) {
         this.working = true;
 
-        callback()
+        setTimeout(callback,10)
     }
-})
+}
+
+
+module.exports = appolo.define($config,Bootstrap);
