@@ -1,6 +1,7 @@
 
 var appolo = require('appolo'),
-    launcher = require('./lib/launcher/launcher');
+    launcher = require('./lib/launcher/launcher'),
+    util = require('./lib/util/util');
 
 module.exports = {
     define : appolo.define,
