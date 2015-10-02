@@ -21,7 +21,7 @@ describe('Appolo Express', function () {
         });
 
         afterEach(function () {
-            appolo.launcher.softReset();
+            appolo.launcher.reset();
         });
 
 
@@ -55,6 +55,25 @@ describe('Appolo Express', function () {
                     res.body.working.should.be.ok
 
                     res.body.controllerName.should.be.eq('testRouteController')
+
+                    res.body.model.userName.should.ok;
+                })
+                .end(done);
+        });
+
+        it('should  call controller from static $route', function (done) {
+
+            request(appolo.launcher.app)
+                .get('/test/route/static/?user_name=11')
+                .expect(function (res) {
+                    res.should.to.have.status(200);
+                    res.should.to.be.json;
+
+                    should.exist(res.body)
+
+                    res.body.working.should.be.ok
+
+                    res.body.controllerName.should.be.eq('routeStaticController')
 
                     res.body.model.userName.should.ok;
                 })
