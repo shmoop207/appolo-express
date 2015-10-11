@@ -98,7 +98,7 @@ The folder will be required and loaded on appolo launch
 Type :`string`, Default: process.cwd()
 the root folder of the paths option
 
-####options.bootStrapClassId####
+####options.environment####
 Type :`string`, Default: `(process.env.NODE_ENV || 'development')`
 environment file name that will override the environment all.js file
 default is the NODE_ENV or if not defined it will be `development`
@@ -122,7 +122,7 @@ Type :`string`, Default: 'public'
 the public folder where all your assets and static files will be located
 
 ####options.loadDefaultConfigurations####
-Type :`bolean`, Default: 'true'
+Type :`boolean`, Default: 'true'
 true to load all  express default middlewares and express options. false to load custom middlewares by yourself
 ```javascript
 app.locals.pretty = true;
@@ -143,7 +143,7 @@ app.use(express.static);
 Type :`string`, Default: 'Appolo Server listening on port: {port} version:{version} environment: {environment}'
 the message that will be written to console log the the server starts
 ####options.startServer
-Type :`bolean`, Default: 'true'
+Type :`boolean`, Default: 'true'
 if true the server will start immediately to listen to port else you will have to start in manually.
 ####options.port
 Type :`number`, Default: `process.env.PORT || this._options.port || appolo.environment.port || 8080)`
@@ -426,9 +426,9 @@ send json error response with optional message
 ```
 
 ##Middlewares 
-middlewrae class will run before the action of the controller is invoked.
+middleware class will run before the action of the controller is invoked.
 you must and declare the middleware `id` in the route and call `next` function in order to continue the request.
-the middleware call must impelmet the run method and inherit from `appolo.Middleware`
+the middleware must implement the `run` method and inherit from `appolo.Middleware`
 
 example : in routes file
 ```javascript
