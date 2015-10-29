@@ -25,7 +25,7 @@
     "npm": "2.14.x"
   },
   "main": "./index.js",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
   "readme": "",
   "readmeFilename": "README.md",
   "dependencies": {
-    "appolo": "2.0.4",
+    "appolo": "2.0.5",
     "bluebird": "^3.0.2",
     "body-parser": "1.14.1",
     "compression": "1.6.0",
