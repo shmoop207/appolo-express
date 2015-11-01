@@ -34,7 +34,7 @@
   "readme": "",
   "readmeFilename": "README.md",
   "dependencies": {
-    "appolo": "2.0.5",
+    "appolo": "2.0.6",
     "bluebird": "^3.0.2",
     "body-parser": "1.14.1",
     "compression": "1.6.0",
