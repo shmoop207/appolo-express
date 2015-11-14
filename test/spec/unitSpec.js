@@ -28,5 +28,30 @@ describe('Appolo Express Unit', function () {
             should.exist(appolo.launcher.app)
         })
 
+        it("should have managers",function(){
+
+            var manager = appolo.inject.getObject('manager');
+
+            should.exist(manager)
+            should.exist(manager.manager2)
+            should.exist(manager.manager3)
+            should.exist(manager.manager3.manager2)
+
+        })
+
+        it("should have manager statics",function(){
+
+            var manager = appolo.inject.getObject('manager3');
+
+            manager.TEST.should.be.eq(1)
+
+        })
+
+        it("should have manager namespace",function(){
+
+            should.exist(TEST.Manager3)
+
+        })
+
     });
 });

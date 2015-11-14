@@ -4,7 +4,8 @@ var appolo = require('../../../index');
 
 let $config = {
     id: 'manager',
-    singleton: true
+    singleton: true,
+    inject:['manager2','manager3']
 };
 
 class Manager {
