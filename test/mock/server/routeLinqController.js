@@ -25,3 +25,11 @@ appolo.define('routeLinqController')
         }
 
     ])
+    .routes({
+        path: '/test/route/linq_object',
+        method: 'get',
+        action: 'test',
+        validations: {
+            user_name: appolo.validator.string().required()
+        }
+    })
