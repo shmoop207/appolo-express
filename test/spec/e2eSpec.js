@@ -137,6 +137,26 @@ describe('Appolo Express', function () {
                 .end(done);
         });
 
+        it('should  call controller from linq fluent method', function (done) {
+
+            request(appolo.launcher.app)
+                .get('/test/route/fluent_method/?user_name=11')
+                .expect(function (res) {
+                    res.should.to.have.status(200);
+                    res.should.to.be.json;
+
+                    should.exist(res.body)
+
+                    res.body.working.should.be.ok
+
+                    res.body.controllerName.should.be.eq('routeLinqController')
+
+                    res.body.model.userName.should.ok;
+                })
+                .end(done);
+        });
+
+
 
 
         it('should  call middleware before controller', function (done) {
