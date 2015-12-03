@@ -5,6 +5,7 @@ var appolo = require('appolo'),
 
 module.exports = {
     define : appolo.define,
+    route : require('./lib/routes/route'),
     Controller : require('./lib/controller/controller'),
     Middleware : require('./lib/middleware/middleware'),
     EventDispatcher :appolo.EventDispatcher,

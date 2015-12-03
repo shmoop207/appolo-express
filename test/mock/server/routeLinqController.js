@@ -33,3 +33,11 @@ appolo.define('routeLinqController')
             user_name: appolo.validator.string().required()
         }
     })
+
+
+appolo.route('routeLinqController')
+    .path('/test/route/fluent')
+    .method('get')
+    .action(c=>c.test)
+    .validations('user_name', appolo.validator.string().required());
+
