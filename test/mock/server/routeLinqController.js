@@ -43,5 +43,6 @@ appolo.route('routeLinqController')
     .route('routeLinqController')
     .path('/test/route/fluent')
     .action('test')
+    .role("aaa")
     .validations({'user_name':appolo.validator.string().required()});
 
