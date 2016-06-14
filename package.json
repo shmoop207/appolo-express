@@ -25,7 +25,7 @@
     "npm": "2.14.x"
   },
   "main": "./index.js",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -59,7 +59,6 @@
     "chai": "1.8.1",
     "chai-http": "^0.4.0",
     "grunt": "*",
-    "grunt-express-server": "^0.4.13",
     "grunt-mocha-test": "0.8.1",
     "supertest": "^0.14.0"
   }
