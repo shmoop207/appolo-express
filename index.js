@@ -22,7 +22,7 @@ module.exports = {
         appolo.module.register(func);
     },
     launch:function(config,callback){
-        launcher.launch(config,callback);
+        return launcher.launch(config,callback);
     }
 }
 
