@@ -1,5 +1,5 @@
 declare module "appolo-express" {
-    import * as Express from '@types/express'
+    import * as Express from 'express'
 
 
     export class Midddleware {
@@ -25,7 +25,7 @@ declare module "appolo-express" {
 
         un(event: string, fn: Function, scope: any): void
 
-        fireEvent(event: string): void
+        fireEvent(event: string,...rest:any[]): void
 
         removeAllListeners()
     }
@@ -83,7 +83,8 @@ declare module "appolo-express" {
 
     export function route(controller: string|Function): Route
 
-    export  import   validator =  require('@types/joi')
+    export  import   validator =  require('joi')
+    export  import   express =  require('express')
 
     export function use(func: Function)
 
@@ -105,7 +106,8 @@ declare module "appolo-express" {
 
     export function launch(config?: LaunchParams, callback?: (err: any) => void)
 
-    export let launcher: Launcher
+    export let launcher: Launcher;
+    export let  environment:any;
 
 }
 
@@ -141,4 +143,11 @@ declare module "appolo-express/decorators" {
     export function aliasFactory(aliasFactory: string)
 
 
+}
+
+
+declare namespace Express {
+    export interface Request {
+        model?: any
+    }
 }
