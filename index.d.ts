@@ -2,7 +2,7 @@ declare module "appolo-express" {
     import * as Express from 'express'
 
 
-    export class Midddleware {
+    export class Middleware {
         res: Express.Response;
         req: Express.Request;
         next: (err: any, data: any) => void;
@@ -60,6 +60,7 @@ declare module "appolo-express" {
         sendNotFound(error?: any, code?: any): void
 
         getName(): string
+        getModel<T>(): T
     }
 
 
@@ -67,10 +68,11 @@ declare module "appolo-express" {
 
         new (controller: string|Function)
         path(pathPattern: string): Route
-        action(action: string|Function): Route
+        action(action): Route
         abstract(abstract: any): Route
         validation(key: any, validation: any): Route
         validations(key: any, validation: any): Route
+        validations(validation: any): Route
         method(method: 'get'|'post'|'delete'|'patch'|'head'|'put'): Route
         environment(environment: string|string[]): Route
         environments(environment: string|string[]): Route
@@ -104,9 +106,18 @@ declare module "appolo-express" {
         reset(soft: boolean)
     }
 
+    interface Inject{
+        getObject(id:string,args:any[])
+        getInstance(id:string)
+        addDefinition(id:string,def:any)
+        define(id:string,type:any)
+        reset()
+    }
+
     export function launch(config?: LaunchParams, callback?: (err: any) => void)
 
     export let launcher: Launcher;
+    export let inject: Inject;
     export let  environment:any;
 
 }
