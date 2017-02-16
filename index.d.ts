@@ -25,7 +25,7 @@ declare module "appolo-express" {
 
         un(event: string, fn: Function, scope: any): void
 
-        fireEvent(event: string,...rest:any[]): void
+        fireEvent(event: string, ...rest: any[]): void
 
         removeAllListeners()
     }
@@ -60,30 +60,31 @@ declare module "appolo-express" {
         sendNotFound(error?: any, code?: any): void
 
         getName(): string
+
         getModel<T>(): T
     }
 
 
-    interface Route {
+    interface Route<T> {
 
-        new (controller: string|Function)
-        path(pathPattern: string): Route
-        action(action): Route
-        abstract(abstract: any): Route
-        validation(key: any, validation: any): Route
-        validations(key: any, validation: any): Route
-        validations(validation: any): Route
-        method(method: 'get'|'post'|'delete'|'patch'|'head'|'put'): Route
-        environment(environment: string|string[]): Route
-        environments(environment: string|string[]): Route
-        middleware(middleware: string|string[]): Route
-        middlewares(middleware: string|string[]): Route
-        role(role: string|string[]): Route
-        roles(role: string|string[]): Route
-        route(controller: string): Route
+        new (controller: string|T)
+        path(pathPattern: string): Route<T>
+        action(action): Route<T>
+        abstract(abstract: any): Route<T>
+        validation(key: any, validation: any): Route<T>
+        validations(key: any, validation: any): Route<T>
+        validations(validation: any): Route<T>
+        method(method: 'get'|'post'|'delete'|'patch'|'head'|'put'): Route<T>
+        environment(environment: string|string[]): Route<T>
+        environments(environment: string|string[]): Route<T>
+        middleware(middleware: string|string[]): Route<T>
+        middlewares(middleware: string|string[]): Route<T>
+        role(role: string|string[]): Route<T>
+        roles(role: string|string[]): Route<T>
+        route(controller: string): Route<T>
     }
 
-    export function route(controller: string|Function): Route
+    export function route<T>(controller: string|T): Route<T>
 
     export  import   validator =  require('joi')
     export  import   express =  require('express')
@@ -106,11 +107,11 @@ declare module "appolo-express" {
         reset(soft: boolean)
     }
 
-    interface Inject{
-        getObject(id:string,args:any[])
-        getInstance(id:string)
-        addDefinition(id:string,def:any)
-        define(id:string,type:any)
+    interface Inject {
+        getObject(id: string, args: any[])
+        getInstance(id: string)
+        addDefinition(id: string, def: any)
+        define(id: string, type: any)
         reset()
     }
 
@@ -118,7 +119,7 @@ declare module "appolo-express" {
 
     export let launcher: Launcher;
     export let inject: Inject;
-    export let  environment:any;
+    export let environment: any;
 
 }
 
