@@ -7,9 +7,9 @@ declare module "appolo-express" {
         req: Express.Request;
         next: (err: any, data: any) => void;
 
-        constructor(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route: Route)
+        constructor(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route:any)
 
-        run(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route: Route)
+        run(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route: any)
 
         sendServerError(error?: any, code?: any)
 
