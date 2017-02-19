@@ -129,24 +129,23 @@ declare module "appolo-express/decorators" {
 
     export function singleton(singleton?: boolean)
 
-    export function inject(name?: string, inject?: string)
-    export function inject(name?: string)
+    export function inject( inject?: string)
 
-    export function injectFactoryMethod(name: string, factoryMethod: string)
+    export function injectFactoryMethod( factoryMethod: string)
 
-    export function injectAlias(name: string, alias: string)
+    export function injectAlias( alias: string)
 
-    export function injectAliasFactory(name: string, alias: string)
+    export function injectAliasFactory( alias: string)
 
-    export function injectArray(name: string, arr: string)
+    export function injectArray( arr: string)
 
-    export function injectDictionary(name: string, dic: string)
+    export function injectDictionary( dic: string)
 
-    export function injectFactory(name: string, factory: string)
+    export function injectFactory( factory: string)
 
-    export function injectObjectProperty(name: string, object: string, propertyName: string)
+    export function injectObjectProperty( object: string, propertyName: string)
 
-    export function injectValue(name: string, value: string)
+    export function injectValue( value: string)
 
     export function alias(alias: string)
 
