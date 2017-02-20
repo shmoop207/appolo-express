@@ -25,7 +25,7 @@
     "npm": "2.14.x"
   },
   "main": "./index.js",
-  "version": "3.0.16",
+  "version": "3.0.17",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -36,20 +36,19 @@
   "dependencies": {
     "appolo": "3.0.1",
     "bluebird": "^3.4.7",
-    "body-parser": "1.16.0",
+    "body-parser": "1.16.1",
     "compression": "1.6.2",
     "consolidate": "0.14.5",
     "cookie-parser": "~1.4.3",
     "depd": "1.1.0",
-    "dependable": "0.2.5",
     "errorhandler": "^1.5.0",
     "express": "4.14.1",
     "joi": "10.2.1",
     "lodash": "^4.17.4",
     "method-override": "2.3.7",
-    "morgan": "1.8.0",
+    "morgan": "1.8.1",
     "multer": "1.3.0",
-    "serve-favicon": "2.3.2",
+    "serve-favicon": "2.4.0",
     "swig": "1.4.2"
   },
   "devDependencies": {
