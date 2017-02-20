@@ -77,8 +77,8 @@ declare module "appolo-express" {
         method(method: 'get'|'post'|'delete'|'patch'|'head'|'put'): Route<T>
         environment(environment: string|string[]): Route<T>
         environments(environment: string|string[]): Route<T>
-        middleware(middleware: string|string[]): Route<T>
-        middlewares(middleware: string|string[]): Route<T>
+        middleware(middleware: string|string[]|Function): Route<T>
+        middlewares(middleware: string|string[]|Function): Route<T>
         role(role: string|string[]): Route<T>
         roles(role: string|string[]): Route<T>
         route(controller: string): Route<T>
@@ -99,6 +99,7 @@ declare module "appolo-express" {
         startMessage?: string,
         startServer?: boolean,
         loadDefaultConfigurations?: boolean
+        useBodyParser?: boolean
     }
 
     interface Launcher {
