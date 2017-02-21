@@ -67,9 +67,9 @@ declare module "appolo-express" {
 
     interface Route<T> {
 
-        new (controller: string|T)
+        new (controller: string|typeof Controller)
         path(pathPattern: string): Route<T>
-        action(action): Route<T>
+        action(action:(c:T)=>Function): Route<T>
         abstract(abstract: any): Route<T>
         validation(key: any, validation: any): Route<T>
         validations(key: any, validation: any): Route<T>
@@ -84,7 +84,7 @@ declare module "appolo-express" {
         route(controller: string): Route<T>
     }
 
-    export function route<T>(controller: string|T): Route<T>
+    export function route<T>(controller: string|typeof Controller): Route<T>
 
     export  import   validator =  require('joi')
     export  import   express =  require('express')
