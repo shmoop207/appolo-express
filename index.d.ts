@@ -98,6 +98,8 @@ declare module "appolo-express" {
         uploadsFolder?: string,
         startMessage?: string,
         startServer?: boolean,
+        environment?:string,
+        paths?:string[],
         loadDefaultConfigurations?: boolean
         useBodyParser?: boolean
     }
@@ -105,14 +107,15 @@ declare module "appolo-express" {
     interface Launcher {
         launch(config?: LaunchParams, callback?: (err: any) => void): Promise<void>
         startServer()
-        reset(soft: boolean)
+        reset(soft?: boolean)
     }
 
     interface Inject {
-        getObject(id: string, args: any[])
+        getObject(id: string, args?: any[])
+        addObject(objectId:string, instance:any)
         getInstance(id: string)
         addDefinition(id: string, def: any)
-        define(id: string, type: any)
+        define(id: string, type?: any)
         reset()
     }
 
