@@ -5,7 +5,7 @@ declare module "appolo-express" {
     export class Middleware {
         res: Express.Response;
         req: Express.Request;
-        next: (err: any, data: any) => void;
+        next: (err?: any, data?: any) => void;
 
         constructor(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route:any)
 
