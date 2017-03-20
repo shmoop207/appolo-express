@@ -22,10 +22,10 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": "2.14.x"
+    "npm": ">= 2.14.x"
   },
   "main": "./index.js",
-  "version": "3.0.27",
+  "version": "3.0.28",
   "license": "MIT",
   "repository": {
     "type": "git",
