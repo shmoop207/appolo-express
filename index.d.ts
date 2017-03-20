@@ -102,12 +102,14 @@ declare module "appolo-express" {
         paths?:string[],
         loadDefaultConfigurations?: boolean
         useBodyParser?: boolean
+        port?: number
     }
 
     interface Launcher {
         launch(config?: LaunchParams, callback?: (err: any) => void): Promise<void>
         startServer()
         reset(soft?: boolean)
+        app:express.Application
     }
 
     interface Inject {
@@ -137,9 +139,9 @@ declare module "appolo-express/decorators" {
 
     export function injectFactoryMethod( factoryMethod: string)
 
-    export function injectAlias( alias: string)
+    export function injectAlias( alias: string,indexBy?:string)
 
-    export function injectAliasFactory( alias: string)
+    export function injectAliasFactory( alias: string,indexBy?:string)
 
     export function injectArray( arr: string)
 
