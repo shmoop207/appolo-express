@@ -1,3 +1,5 @@
+import * as http from "http";
+import * as https from "https";
 declare module "appolo-express" {
     import * as Express from 'express'
 
@@ -7,7 +9,7 @@ declare module "appolo-express" {
         req: Express.Request;
         next: (err?: any, data?: any) => void;
 
-        constructor(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route:any)
+        constructor(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route: any)
 
         run(req: Express.Request, res: Express.Response, next: (err: any, data: any) => void, route: any)
 
@@ -67,24 +69,24 @@ declare module "appolo-express" {
 
     interface Route<T> {
 
-        new (controller: string|typeof Controller)
+        new (controller: string | typeof Controller)
         path(pathPattern: string): Route<T>
-        action(action:(c:T)=>Function): Route<T>
+        action(action: (c: T) => Function): Route<T>
         abstract(abstract: any): Route<T>
         validation(key: any, validation: any): Route<T>
         validations(key: any, validation: any): Route<T>
         validations(validation: any): Route<T>
-        method(method: 'get'|'post'|'delete'|'patch'|'head'|'put'): Route<T>
-        environment(environment: string|string[]): Route<T>
-        environments(environment: string|string[]): Route<T>
-        middleware(middleware: string|string[]|Function): Route<T>
-        middlewares(middleware: string|string[]|Function): Route<T>
-        role(role: string|string[]): Route<T>
-        roles(role: string|string[]): Route<T>
+        method(method: 'get' | 'post' | 'delete' | 'patch' | 'head' | 'put'): Route<T>
+        environment(environment: string | string[]): Route<T>
+        environments(environment: string | string[]): Route<T>
+        middleware(middleware: string | string[] | Function): Route<T>
+        middlewares(middleware: string | string[] | Function): Route<T>
+        role(role: string | string[]): Route<T>
+        roles(role: string | string[]): Route<T>
         route(controller: string): Route<T>
     }
 
-    export function route<T>(controller: string|typeof Controller): Route<T>
+    export function route<T>(controller: string | typeof Controller): Route<T>
 
     export  import   validator =  require('joi')
     export  import   express =  require('express')
@@ -98,8 +100,8 @@ declare module "appolo-express" {
         uploadsFolder?: string,
         startMessage?: string,
         startServer?: boolean,
-        environment?:string,
-        paths?:string[],
+        environment?: string,
+        paths?: string[],
         loadDefaultConfigurations?: boolean
         useBodyParser?: boolean
         port?: number
@@ -109,12 +111,13 @@ declare module "appolo-express" {
         launch(config?: LaunchParams, callback?: (err: any) => void): Promise<void>
         startServer()
         reset(soft?: boolean)
-        app:express.Application
+        app: express.Application,
+        server: http.Server | https.Server
     }
 
     interface Inject {
         getObject(id: string, args?: any[])
-        addObject(objectId:string, instance:any)
+        addObject(objectId: string, instance: any)
         getInstance(id: string)
         addDefinition(id: string, def: any)
         define(id: string, type?: any)
@@ -135,23 +138,23 @@ declare module "appolo-express/decorators" {
 
     export function singleton(singleton?: boolean)
 
-    export function inject( inject?: string)
+    export function inject(inject?: string)
 
-    export function injectFactoryMethod( factoryMethod: string)
+    export function injectFactoryMethod(factoryMethod: string)
 
-    export function injectAlias( alias: string,indexBy?:string)
+    export function injectAlias(alias: string, indexBy?: string)
 
-    export function injectAliasFactory( alias: string,indexBy?:string)
+    export function injectAliasFactory(alias: string, indexBy?: string)
 
-    export function injectArray( arr: string)
+    export function injectArray(arr: string)
 
-    export function injectDictionary( dic: string)
+    export function injectDictionary(dic: string)
 
-    export function injectFactory( factory: string)
+    export function injectFactory(factory: string)
 
-    export function injectObjectProperty( object: string, propertyName: string)
+    export function injectObjectProperty(object: string, propertyName: string)
 
-    export function injectValue( value: string)
+    export function injectValue(value: string)
 
     export function alias(alias: string)
 
