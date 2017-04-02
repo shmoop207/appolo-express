@@ -1,20 +1,14 @@
 "use strict";
-var appolo = require('../../../index');
-
-let $config = {
-    id: 'appolo-bootstrap',
-    singleton: true,
-    inject: ['manager']
-}
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const appolo = require("../../../index");
 class Bootstrap {
-
-    run (callback) {
+    run(callback) {
         this.working = true;
-
-        setTimeout(callback,10)
+        setTimeout(callback, 10);
     }
 }
-
-
-module.exports = appolo.define($config,Bootstrap);
+exports.Bootstrap = Bootstrap;
+appolo.define('appolo-bootstrap', Bootstrap)
+    .singleton()
+    .inject("manager");
+//# sourceMappingURL=bootstrap.js.map

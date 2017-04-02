@@ -1,16 +1,14 @@
 "use strict";
-var appolo = require('../../../index');
-
-module.exports  = class Controller extends appolo.Controller {
-
-    static get $config()  {
+Object.defineProperty(exports, "__esModule", { value: true });
+const appolo = require("../../../index");
+module.exports = class Controller extends appolo.Controller {
+    static get $config() {
         return {
             id: 'routeStaticController'
-        }
+        };
     }
-
-    static get $routes()  {
-        return  [
+    static get $routes() {
+        return [
             {
                 abstract: true,
                 validations: {
@@ -22,12 +20,10 @@ module.exports  = class Controller extends appolo.Controller {
                 method: 'get',
                 action: 'test'
             }
-
-        ]
+        ];
     }
-
     test(req, res) {
-        res.json({working: true, controllerName: this.route.controller, model: req.model})
+        res.json({ working: true, controllerName: this.route.controller, model: req.model });
     }
-
-}
+};
+//# sourceMappingURL=routeStaticController.js.map

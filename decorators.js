@@ -1,6 +1,7 @@
-
-var appolo = require('appolo'),
-    launcher = require('./lib/launcher/launcher'),
-    util = require('./lib/util/util');
-
-module.exports = require('./lib/decorators/decorators')
+"use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(require("./lib/decorators/decorators"));
+//# sourceMappingURL=decorators.js.map

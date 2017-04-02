@@ -1,31 +1,27 @@
 "use strict";
-var appolo = require('../../../index');
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const appolo = require("../../../index");
 let $config = {
     id: 'routeEnvController',
     routes: [
         {
             path: '/test/route/not_in_env/',
-            method: 'get',
+            //method: 'get',
             action: 'test',
             environments: ['test']
         },
-
         {
             path: '/test/route/env/',
-            method: 'get',
+            //method: 'get',
             action: 'test',
             environments: ['testing']
         }
     ]
 };
-
 class Controller extends appolo.Controller {
-
     test(req, res) {
-        res.json({working: true, controllerName: this.route.controller})
+        res.json({ working: true, controllerName: this.route.controller });
     }
-
 }
-
-module.exports = appolo.define($config, Controller)
+appolo.define($config, Controller);
+//# sourceMappingURL=routeEnvController.js.map
