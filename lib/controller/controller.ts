@@ -3,7 +3,7 @@
 import path = require('path');
 import    _ = require('lodash');
 import    express = require('express');
-import {IRouteOptions} from "../IRouteOptions";
+import {IRouteOptions} from "../interfaces/IRouteOptions";
 
 export class Controller{
 

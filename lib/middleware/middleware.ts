@@ -3,8 +3,8 @@
 import path = require('path');
 import _= require('lodash');
 import    express = require('express');
-import {IRouteOptions} from "../IRouteOptions";
-import {IMiddleware} from "../IMiddleware";
+import {IRouteOptions} from "../interfaces/IRouteOptions";
+import {IMiddleware} from "../interfaces/IMiddleware";
 
 
 export class Middleware implements IMiddleware{

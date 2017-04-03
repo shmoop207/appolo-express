@@ -1,7 +1,8 @@
 "use strict";
 import appolo = require('../../../index');
+import {IDefinition} from "../../../lib/interfaces/IDefinition";
 
-let $config = {
+let $config = <IDefinition>{
     id: 'moduleController',
     inject: ['logger2'],
     routes: [

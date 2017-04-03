@@ -6,8 +6,8 @@ import    path = require('path');
 import    {Controller} from '../controller/controller';
 import    joi = require('joi');
 import    express = require('express');
-import {IRouteOptions} from "../IRouteOptions";
-import {IMiddleware} from "../IMiddleware";
+import {IRouteOptions} from "../interfaces/IRouteOptions";
+import {IMiddleware} from "../interfaces/IMiddleware";
 import {Util} from "../util/util";
 
 

@@ -1,7 +1,7 @@
 "use strict";
 
 import    _ = require('lodash');
-import {IDefinition} from "../IDefinition";
+import {IDefinition} from "../interfaces/IDefinition";
 import {Define} from "./define";
 import * as appolo from "appolo";
 

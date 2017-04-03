@@ -1,9 +1,9 @@
 "use strict";
 import _ = require('lodash');
-import {IDefinition} from "../IDefinition";
+import {IDefinition} from "../interfaces/IDefinition";
 import {Define as DefineAppolo} from "appolo";
 import {Util} from "../util/util";
-import {IRouteOptions} from "../IRouteOptions";
+import {IRouteOptions} from "../interfaces/IRouteOptions";
 import {Controller} from "../controller/controller";
 import    router  from '../routes/router';
 

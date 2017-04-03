@@ -17,7 +17,7 @@ import    _ = require('lodash');
 import    consolidate = require('consolidate');
 import    multer = require('multer');
 import    errorhandler = require('errorhandler');
-import {IOptions} from "../IOptions";
+import {IOptions} from "../interfaces/IOptions";
 
 export class Launcher extends appolo.Launcher {
 

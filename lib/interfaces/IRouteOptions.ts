@@ -1,6 +1,8 @@
 import appolo = require('appolo');
 import    joi = require('joi');
-import {Controller} from "./controller/controller";
+import {Controller} from "./../controller/controller";
+
+export type Method = 'get' | 'post' | 'delete' | 'patch' | 'head' | 'put'
 
 export interface IRouteOptions {
     controller?: string
@@ -13,5 +15,5 @@ export interface IRouteOptions {
     path?: string
     abstract?: boolean,
     convertToCamelCase?: boolean
-    method?: 'get' | 'post' | 'delete' | 'patch' | 'head' | 'put'
+    method?: Method
 }

@@ -4,7 +4,7 @@ import    _ = require('lodash');
 import    joi = require('joi');
 import    router  from './router';
 import {Controller} from "../controller/controller";
-import {IRouteOptions} from "../IRouteOptions";
+import {IRouteOptions} from "../interfaces/IRouteOptions";
 
 export class Route<T> {
     protected _route:IRouteOptions;
