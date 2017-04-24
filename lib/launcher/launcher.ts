@@ -78,7 +78,8 @@ export class Launcher extends appolo.Launcher {
             startMessage: "Appolo Server listening on port: ${port} version:${version} environment: ${environment}",
             startServer: true,
             loadDefaultConfigurations: true,
-            useBodyParser: true
+            useBodyParser: true,
+            useMulter: true
         };
 
         let dto = super.loadOptions(config);
@@ -169,8 +170,9 @@ export class Launcher extends appolo.Launcher {
             this._app.use(bodyParser.json());
         }
 
-
-        this._app.use(multer({dest: path.join(this._options.root, this._options.uploadsFolder)}).array('file'));
+        if(this._options.useMulter){
+            this._app.use(multer({dest: path.join(this._options.root, this._options.uploadsFolder)}).array('file'));
+        }
 
         this._app.use(methodOverride());
 

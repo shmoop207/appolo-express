@@ -9,6 +9,7 @@ export interface IOptions extends appolo.IOptions{
     startServer?: boolean,
     loadDefaultConfigurations?: boolean,
     useBodyParser?: boolean,
+    useMulter?: boolean,
     port?:number,
     ssl?:{
         key:string
