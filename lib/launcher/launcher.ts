@@ -241,7 +241,9 @@ export class Launcher extends appolo.Launcher {
     public async startServer() {
         await Q.fromCallback((callback:(err: any, result?: any) => void)=>this._server.listen(this._port,callback));
 
-        console.log(_.template(this._options.startMessage)({port:this._port, version:appolo.environment.version, environment:appolo.environment.type}));
+        let msg= _.template(this._options.startMessage,{interpolate:/\${([\s\S]+?)}/g})({port:this._port, version:appolo.environment.version, environment:appolo.environment.type})
+
+        console.log(msg);
 
         this.fireEvent('appolo-server-started');
 
