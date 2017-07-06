@@ -1,5 +1,6 @@
 "use strict";
 import appolo = require('../../../index');
+import {IDefinition} from "../../../lib/interfaces/IDefinition";
 
 let $config = {
     id: 'testController',
@@ -18,4 +19,4 @@ class Controller extends appolo.Controller {
 
 }
 
-module.exports = appolo.define($config, Controller);
+module.exports = appolo.define($config as IDefinition, Controller);

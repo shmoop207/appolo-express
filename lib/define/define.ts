@@ -22,7 +22,7 @@ export class Define extends DefineAppolo {
 
             if (router && _.isObject(routes)) {
 
-                router.addRoutes(this.id, [routes]);
+                router.addRoutes(this.id, [routes as IRouteOptions]);
             }
         }
 

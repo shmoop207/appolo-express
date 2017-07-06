@@ -13,11 +13,11 @@ import {Util} from "../util/util";
 
 export class Router {
 
-    protected  readonly controllerSuffix:string ='Controller';
-    protected  readonly actionSuffix:string ='Action';
+    protected readonly controllerSuffix: string = 'Controller';
+    protected readonly actionSuffix: string = 'Action';
 
-    protected _routes:IRouteOptions[];
-    protected _app:express.Application;
+    protected _routes: IRouteOptions[];
+    protected _app: express.Application;
 
     constructor() {
 
@@ -33,7 +33,7 @@ export class Router {
 
     }
 
-    private static handleRoutes(routes, id:string, klass:Function, router:Router){
+    private static handleRoutes(routes, id: string, klass: Function, router: Router) {
         if (klass === Controller || klass.prototype instanceof Controller) {
 
             if (router && _.isArray(routes)) {
@@ -54,22 +54,27 @@ export class Router {
     }
 
 
-    initialize(app:express.Application, routes:IRouteOptions[]) {
+    initialize(app: express.Application, routes: IRouteOptions[]) {
         this._app = app;
 
         this._routes.push.apply(this._routes, routes);
 
-        _.forEach(this._routes, (route)=>this._createRoute(route));
+        for (let i = 0, length = this._routes ? this._routes.length : 0; i < length; i++) {
+            this._createRoute(this._routes[i])
+        }
     }
 
-    public getRoutes():IRouteOptions[] {
+    public getRoutes(): IRouteOptions[] {
         return this._routes;
     }
 
-    public addRoutes(id:string, routes:IRouteOptions[]) {
-        let abstract =  _(routes).remove(route=> route.abstract).first();
+    public addRoutes(id: string, routes: IRouteOptions[]) {
+        let abstract = _(routes).remove(route => route.abstract).first();
 
-        _.forEach(routes, (route) => {
+        for (let i = 0, length = routes ? routes.length : 0; i < length; i++) {
+
+            let route = routes[i];
+
             if (!route.controller) {
                 route.controller = id
             }
@@ -77,14 +82,13 @@ export class Router {
             if (abstract) {
                 _.defaults(route, abstract);
             }
-
-
+            
             this._routes.push(route)
+        }
 
-        });
     }
 
-    protected _createRoute(route:IRouteOptions) {
+    protected _createRoute(route: IRouteOptions) {
 
         let method = route.method || "get",
             middleware = route.middleware || [];
@@ -122,7 +126,7 @@ export class Router {
 
     }
 
-    protected _invokeMiddleware(route:IRouteOptions, middlewareId:string, req:express.Request, res:express.Response, next:express.NextFunction) {
+    protected _invokeMiddleware(route: IRouteOptions, middlewareId: string, req: express.Request, res: express.Response, next: express.NextFunction) {
         let middleware = appolo.inject.getObject<IMiddleware>(middlewareId, [req, res, next, route]);
 
         if (!middleware) {
@@ -132,7 +136,7 @@ export class Router {
         middleware.run(req, res, next, route);
     }
 
-    protected _invokeAction(route:IRouteOptions, req:express.Request, res:express.Response, next:express.NextFunction) {
+    protected _invokeAction(route: IRouteOptions, req: express.Request, res: express.Response, next: express.NextFunction) {
 
 
         let controller = appolo.inject.getObject<Controller>(route.controller, [req, res, next, route]);
@@ -146,47 +150,47 @@ export class Router {
         controller.invoke(route.action);
     }
 
-   protected async _checkValidation(route:IRouteOptions, req:express.Request, res:express.Response, next:express.NextFunction) {
+    protected async _checkValidation(route: IRouteOptions, req: express.Request, res: express.Response, next: express.NextFunction) {
 
 
-       let data = _.extend({}, req.params, req.query, req.body);
+        let data = _.extend({}, req.params, req.query, req.body);
 
-       let options = {
-           abortEarly: false,
-           allowUnknown: true,
-           stripUnknown: true
-       };
+        let options = {
+            abortEarly: false,
+            allowUnknown: true,
+            stripUnknown: true
+        };
 
-       try {
-           let params = await Q.fromCallback((callback) => joi.validate(data, route.validations, options, callback));
+        try {
+            let params = await Q.fromCallback((callback) => joi.validate(data, route.validations, options, callback));
 
-           let output = {};
+            let output = {};
 
-           if (route.convertToCamelCase!==false) {
+            if (route.convertToCamelCase !== false) {
 
-               for(let key in params){
-                   output[Util.convertSnakeCaseToCamelCase(key)] = params[key]
-               }
-           }
-           else {
-               output = params;
-           }
+                for (let key in params) {
+                    output[Util.convertSnakeCaseToCamelCase(key)] = params[key]
+                }
+            }
+            else {
+                output = params;
+            }
 
-           (req as any).model = output;
+            (req as any).model = output;
 
-           next();
+            next();
 
-       } catch (e) {
-           res.status(400).jsonp({
-               status: 400,
-               statusText: "Bad Request",
-               error: _.reduce(_.groupBy(e.details, 'path'), (result, errors, key) => {
-                   result[key] = _.map(errors, 'message');
-                   return result;
-               }, {})
-           })
-       }
-   }
+        } catch (e) {
+            res.status(400).jsonp({
+                status: 400,
+                statusText: "Bad Request",
+                error: _.reduce(_.groupBy(e.details, 'path'), (result, errors, key) => {
+                    result[key] = _.map(errors, 'message');
+                    return result;
+                }, {})
+            })
+        }
+    }
 
     public reset() {
         this._routes.length = 0;
