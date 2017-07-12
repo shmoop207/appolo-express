@@ -44,6 +44,12 @@ export class Route<T> {
         return this;
     }
 
+    public extend(opts:{[index:string]:any}):this{
+        _.extend(this._route,opts);
+
+        return this;
+    }
+
     public validation(key:string|{[index:string]:joi.Schema}, validation?:joi.Schema):this{
         return this.validations(key, validation);
     }
