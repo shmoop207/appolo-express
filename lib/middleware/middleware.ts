@@ -22,6 +22,10 @@ export class Middleware implements IMiddleware{
         this.route = route;
     }
 
+    public getModel<T>():T{
+        return (this.req as any).model;
+    }
+
     public run (req:express.Request, res:express.Response, next:express.NextFunction, route:IRouteOptions) {
 
         next();
