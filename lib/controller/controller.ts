@@ -12,7 +12,6 @@ export class Controller {
     protected next: express.NextFunction;
     protected route: IRouteOptions;
     protected action: string | Function;
-    protected actionFnName: string;
 
     constructor(req: express.Request, res: express.Response, next: express.NextFunction, route: IRouteOptions) {
 
@@ -30,14 +29,19 @@ export class Controller {
 
     public invoke(action: string | Function) {
 
-        let fnName: string = this.route._actionFnName || (_.isString(action) ? action : action(this).name);
+        let fnName: string = this.route._actionFnName;
 
-        if (!this[fnName]) {
-            throw new Error(`failed to invoke ${this.constructor.name} fnName ${fnName}`);
+        if (!fnName) {
+            fnName = _.isString(action) ? action : action(this).name;
+
+            if (!this[fnName]) {
+                throw new Error(`failed to invoke ${this.constructor.name} fnName ${fnName}`);
+            }
+
+            this.route._actionFnName = fnName;
         }
 
         this.action = action;
-        this.actionFnName = this.route._actionFnName = fnName;
 
         this[fnName](this.req, this.res, this.next);
     }
