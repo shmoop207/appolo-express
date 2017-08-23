@@ -48,6 +48,15 @@ export function singleton(singleton?: boolean) {
     return addDefinitionClass("singleton", [])
 }
 
+export function lazy(lazy?: boolean) {
+    if (lazy === false) {
+        return function () {
+        }
+    }
+
+    return addDefinitionClass("lazy", [])
+}
+
 
 export function alias(alias: string) {
     return addDefinitionClass("alias", [alias]);

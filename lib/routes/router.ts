@@ -3,7 +3,7 @@ import appolo = require('appolo');
 import    _ = require('lodash');
 import  Q = require('bluebird');
 import    path = require('path');
-import    {Controller} from '../controller/controller';
+import {Controller} from '../controller/controller';
 import    joi = require('joi');
 import    express = require('express');
 import {IRouteOptions} from "../interfaces/IRouteOptions";
@@ -82,7 +82,7 @@ export class Router {
             if (abstract) {
                 _.defaults(route, abstract);
             }
-            
+
             this._routes.push(route)
         }
 
@@ -114,7 +114,20 @@ export class Router {
             ? middlewareId
             : this._invokeMiddleware.bind(this, route, middlewareId));
 
-        args = args.concat([this._invokeAction.bind(this, route)]);
+        //args = args.concat([Router._invokeAction.bind(null, route)]);
+
+        args.push(function (req: express.Request, res: express.Response, next: express.NextFunction) {
+
+            let controller = appolo.inject.getObject<Controller>(route.controller, [req, res, next, route]);
+
+            if (!controller) {
+                throw new Error("failed to find controller " + route.controller);
+            }
+
+            controller.initialize();
+
+            controller.invoke(route.action);
+        });
 
         if (!_.isEmpty(route.validations)) {
             args.unshift(this._checkValidation.bind(this, route));
@@ -136,19 +149,19 @@ export class Router {
         middleware.run(req, res, next, route);
     }
 
-    protected _invokeAction(route: IRouteOptions, req: express.Request, res: express.Response, next: express.NextFunction) {
-
-
-        let controller = appolo.inject.getObject<Controller>(route.controller, [req, res, next, route]);
-
-        if (!controller) {
-            throw new Error("failed to find controller " + route.controller);
-        }
-
-        controller.initialize();
-
-        controller.invoke(route.action);
-    }
+    // protected static _invokeAction(route: IRouteOptions, req: express.Request, res: express.Response, next: express.NextFunction) {
+    //
+    //
+    //     let controller = appolo.inject.getObject<Controller>(route.controller, [req, res, next, route]);
+    //
+    //     if (!controller) {
+    //         throw new Error("failed to find controller " + route.controller);
+    //     }
+    //
+    //     controller.initialize();
+    //
+    //     controller.invoke(route.action);
+    // }
 
     protected async _checkValidation(route: IRouteOptions, req: express.Request, res: express.Response, next: express.NextFunction) {
 

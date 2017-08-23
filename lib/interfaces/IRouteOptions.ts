@@ -7,7 +7,8 @@ export type Method = 'get' | 'post' | 'delete' | 'patch' | 'head' | 'put'
 export interface IRouteOptions {
     controller?: string
     controllerName?: string
-    action?: Function|string
+    action?: Function | string
+    _actionFnName?: string
     environments?: string[]
     roles?: string[]
     middleware?: (string | Function)[]
