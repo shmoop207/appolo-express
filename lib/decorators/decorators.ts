@@ -32,7 +32,7 @@ export function define(id?: string) {
     return function (id, fn) {
         let appoloDef = appolo.define(id || (fn.name.charAt(0).toLowerCase() + fn.name.slice(1)), fn);
 
-        _.forEach(fn.prototype.__inject__, (item) => appoloDef[item.name].apply(appoloDef, item.args))
+        _.forEach(fn.prototype.__inject__, (item:any) => appoloDef[item.name].apply(appoloDef, item.args))
 
         fn.prototype.__inject__ = appoloDef;
 
