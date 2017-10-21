@@ -1,12 +1,14 @@
 Appolo Express  [![Build Status](https://travis-ci.org/shmoop207/appolo-express.png?branch=master)](https://travis-ci.org/shmoop207/appolo-express) [![Dependencies status](https://david-dm.org/shmoop207/appolo-express.png)](https://david-dm.org/shmoop207/appolo-express) [![NPM version](https://badge.fury.io/js/appolo-express.svg)](https://badge.fury.io/js/appolo-express)
 =======
 
-![appolo](https://dl.dropboxusercontent.com/u/19179794/appollo.png)
+![appolo](https://www.dropbox.com/s/pwdvd6ohb74t7r7/appollo.png?raw=1)
 
 Appolo Express is an MVC Framework for Node.js build on top [expressjs][1] 4. <br>
 Build with [appolo-class][2] class system and [appolo-inject][3] dependency injection system.<br>
 Appolo architecture follows common patten of MVC and dependency injection which makes it easy to build better performance, flexibility and easy maintenance server side in nodejs.
 
+## Depracated
+please use [appolo-http](https://github.com/shmoop207/appolo-http)
 
 ## Features
   * MVC Architecture
@@ -19,7 +21,7 @@ Appolo architecture follows common patten of MVC and dependency injection which 
   * Easy integrate third party modules
   * Easy to get started
   
-##Live Demo
+## Live Demo
 #### Multi room chat 
  * build with `appolo-express` `socket.io` and `redis`.
  * live demo: [http://appolo-chat-example.herokuapp.com][4].
@@ -40,14 +42,14 @@ Appolo architecture follows common patten of MVC and dependency injection which 
 npm install appolo-express --save
 ```
 
-##Quick Start 
+## Quick Start 
 in your app.js file
 ```javascript
 var appolo  = require('appolo-express');
 appolo.launcher.launch();
 ```
 
-##Appolo Express Boilerplate
+## Appolo Express Boilerplate
 small example project to get you started with appolo.<br>
 source code : [https://github.com/shmoop207/appolo-express-boilerplate][8]
 ```bash
