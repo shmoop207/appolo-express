@@ -10,6 +10,7 @@ exports.loader = appolo_1.loader;
 exports.environment = appolo_1.environment;
 exports.use = appolo_1.use;
 exports.Injector = appolo_1.Injector;
+exports.load = appolo_1.load;
 var define_1 = require("./lib/define/define");
 exports.Define = define_1.Define;
 var defineFn_1 = require("./lib/define/defineFn");

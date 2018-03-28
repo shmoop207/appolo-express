@@ -2,7 +2,7 @@ import appolo = require('appolo');
 import    launcher from './lib/launcher/launcher';
 import {IOptions} from "./lib/interfaces/IOptions";
 
-export {EventDispatcher, Util, module, inject, loader, environment, use,IEnv,IBootstrap,IFactory,Injector} from  'appolo';
+export {EventDispatcher, Util, module, inject, loader, environment, use,IEnv,IBootstrap,IFactory,Injector, load} from  'appolo';
 export {Define } from './lib/define/define'
 export {define } from './lib/define/defineFn'
 export {default as route, Route}  from './lib/routes/route';
